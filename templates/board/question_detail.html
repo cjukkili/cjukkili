@@ -1,0 +1,64 @@
+{% extends "board/question_base.html" %}
+{% load static %}
+{% block board_content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'question_detail.css' %}">
+    <div class="card article_card mb-4">
+        <div class="card-header article_header">
+            <div class="article_title">
+                <div style="margin-bottom: 7px;">
+                    <a class="college_link" href="{% url 'board:index' %}">{{ question.college }} ></a>
+                </div>
+                <h3>{{ question.title }}</h3>
+            </div>
+            <div class="question_info d-flex flex-row">
+                <div class="profile_img d-flex align-items-center">
+                    <img src="{% static 'img.png' %}" width="36px" height="36px">
+                </div>
+                <div class="profile_info col">
+                    <div class="mx-1 mb-0 question_author">{{ question.author }}</div>
+                    <div class="d-flex article_info">
+                        <p class="mx-1 my-0">{{ question.create_date|date:'y.m.d h:m' }}</p>
+                        <p class="mx-1 my-0">조회수 {{ question.views }}</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mx-2"><i class="fa-solid fa-comment-dots"> 댓글 {{ question.answer_set.count }}</i></div>
+            </div>
+        </div>
+
+        {#본문 영역#}
+        <div class="card-body">
+            <div>
+                {% if question.imgs %}
+                    <div class="text-center">
+                    <img src="{{ question.imgs.url }}">
+                    </div>
+                {% endif %}
+                {{ question.content|linebreaks }}
+            </div>
+        </div>
+
+        {#댓글 영역#}
+        <div class="card-footer comment_box">
+            <div class="card p-2 comment_input_box">
+                <div class="comment_input_info">
+                    <div class="comment_input_username">{{ request.user }}</div>
+                    <textarea class="comment_input_text" rows="1" placeholder="댓글을 남겨보세요." onkeyup="xSize(this)"></textarea>
+                </div>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">등록</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function xSize(e)
+        {
+            e.style.height = '1px';
+            e.style.height = (e.scrollHeight + 12) + 'px';
+        }
+    </script>
+{% endblock %}

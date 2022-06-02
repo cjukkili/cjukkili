@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from board.models import Question, Answer
+from board.models import Question, Comment, Category
 
 
 class QuestionAdmin(admin.ModelAdmin):
@@ -8,4 +8,5 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Question, QuestionAdmin)
-admin.site.register(Answer)
+admin.site.register(Comment)
+admin.site.register(Category)

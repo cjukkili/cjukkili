@@ -1,0 +1,10 @@
+<nav class="border-secondary">
+    <div class="list-group-flush">
+        <a style="text-decoration: none; color: #818182;border-bottom: 3px solid gray;" class="rounded-0 list-group-item text-center" href="{% url 'board:index' %}">자유게시판</a>
+        {% if category_list %}
+            {% for category in category_list %}
+                <a class="rounded-0 list-group-item list-group-item-md list-group-item-action list-group-item-light text-center w-auto" href="{% url 'free:index' %}">{{ category.category_name }}</a>
+            {% endfor %}
+        {% endif %}
+    </div>
+</nav>

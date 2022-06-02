@@ -1,0 +1,48 @@
+.article_card{
+    padding: 29px;
+}
+.article_header{
+    background-color: white;
+}
+
+.college_link{
+    text-decoration: none;
+    color: blue;
+}
+
+.profile_img{
+    margin-right: 10px;
+}
+
+.question_author{
+    font-weight: bold;
+}
+.comment_input_box{
+    border: 2px solid rgba(0,0,0,.125);
+}
+.comment_input_text{
+    width: 100%;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    overflow-y: auto;
+    font-size: 13px;
+    font-weight: 400;
+    min-height: 20px;
+    max-height: 300px;
+    resize: none;
+    border: none;
+}
+
+.comment_box{
+    background-color: white;
+}
+.comment_input_text:focus{
+    outline: none;
+}
+.comment_input_info{
+    margin-bottom: 10px;
+}
+.comment_input_username{
+    font-weight: bold;
+    margin-bottom: 10px;
+}

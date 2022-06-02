@@ -22,7 +22,8 @@ from common.views import base_views
 urlpatterns = [
     path('', base_views.index, name='index'),
     path('admin/', admin.site.urls),
-    path('board/', include('board.urls')),
+    path('college/', include('board.urls')),
     path('common/', include('common.urls')),
+    path('free/', include('free.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,19 @@
+<nav class="border-secondary">
+    <div class="list-group-flush">
+        <a style="text-decoration: none; color: #818182;border-bottom: 3px solid gray;" class="rounded-0 list-group-item text-center" href="{% url 'board:index' %}">단과대학</a>
+        {% if college_list %}
+            {% for college in college_list %}
+                <a class="rounded-0 list-group-item list-group-item-md list-group-item-action list-group-item-light text-center w-auto" href="{% url 'board:question_college_list' college.department %}">{{ college.department }}</a>
+                {#        <a class="rounded-0 list-group-item list-group-item-md list-group-item-action list-group-item-light text-center w-auto" href="#">비즈니스대학</a>#}
+                {#        <a class="rounded-0 list-group-item list-group-item-md list-group-item-action list-group-item-light text-center w-auto" href="#">인문사회대학</a>#}
+                {#        <a class="rounded-0 list-group-item list-group-item-md list-group-item-action list-group-item-light text-center w-auto" href="#">공과대학</a>#}
+                {#        <a class="rounded-0 list-group-item list-group-item-md list-group-item-action list-group-item-light text-center w-auto" href="#">사범대학</a>#}
+                {#        <a class="rounded-0 list-group-item list-group-item-md list-group-item-action list-group-item-light text-center w-auto" href="#">예술대학</a>#}
+                {#        <a class="rounded-0 list-group-item list-group-item-md list-group-item-action list-group-item-light text-center w-auto" href="#">보건의료과학대학</a>#}
+                {#        <a class="rounded-0 list-group-item list-group-item-md list-group-item-action list-group-item-light text-center w-auto" href="#">교양대학</a>#}
+                {#        <a class="rounded-0 list-group-item list-group-item-md list-group-item-action list-group-item-light text-center w-auto" href="#">항공학부</a>#}
+                {#        <a class="rounded-0 list-group-item list-group-item-md list-group-item-action list-group-item-light text-center w-auto" href="#">군사학과</a>#}
+            {% endfor %}
+        {% endif %}
+    </div>
+</nav>

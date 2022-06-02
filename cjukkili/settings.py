@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'board.apps.BoardConfig',
     'common.apps.CommonConfig',
+    'free.apps.FreeConfig',
 ]
 
 MIDDLEWARE = [

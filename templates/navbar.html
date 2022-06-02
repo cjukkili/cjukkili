@@ -1,0 +1,37 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'navbar.css' %}">
+<nav class="navbar navbar-expand-lg navbar-light nav-color">
+    <div class="container-fluid">
+        <div>
+            <a class="" href="{% url 'index' %}"><img class="logo" src="{% static 'temp_logo.png' %}"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">공지</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="collegeDropdownMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        단과대학
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="collegeDropdownMenu">
+                        {% if college_list %}
+                            {% for college in college_list %}
+                                <li><a class="dropdown-item" href="{% url 'board:question_college_list' college.department %}">{{ college.department }}</a></li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">동아리</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'free:index' %}">자유게시판</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

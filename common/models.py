@@ -1,8 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
-
 
 class College(models.Model):
     department = models.CharField(max_length=50, primary_key=True)
@@ -20,10 +18,9 @@ class Gender(models.Model):
 
 class User(AbstractUser):
     gender = models.ForeignKey(Gender, null=True, on_delete=models.SET_NULL)
-    college = models.ForeignKey(College, null=True, on_delete=models.CASCADE)
+    college = models.ForeignKey(College, null=True, on_delete=models.SET_NULL)
     nickname = models.CharField(max_length=100, unique=True)
+    profile_img = models.ImageField(upload_to='profile_img/', null=True, blank=True)
 
     def get_college(self):
         return self.college
-
-
