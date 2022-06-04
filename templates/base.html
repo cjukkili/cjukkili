@@ -12,8 +12,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/8ed800760d.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://kit.fontawesome.com/8ed800760d.js" crossorigin="anonymous"></script>    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -39,33 +39,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                {#                <form th:action="{% url 'common:login' %}" th:method="POST">#}
-                {#                    {% csrf_token %}#}
-                {#                    <div class="text-center pt-3">#}
-                {#                        <input class="rounded-pill login-input-box " type="text" name="username" id="username"#}
-                {#                               placeholder="아이디" value="{{ form.password.value }}">#}
-                {#                    </div>#}
-                {##}
-                {#                    <div class="text-center  pt-2">#}
-                {#                        <input class="rounded-pill login-input-box" type="password" name="password" id="password"#}
-                {#                               placeholder="비밀번호" value="{{ form.password.value }}">#}
-                {#                    </div>#}
-                {##}
-                {#                    <div class="text-center pt-2">#}
-                {#                        <input type="submit" class="btn btn-secondary" id="btn-login" value="로그인">#}
-                {#                        <input type="button" class="btn btn-secondary" value="회원가입" onclick="location.href='/member/join'">#}
-                {#                    </div>#}
-                {##}
-                {#                    <div class="py-2 text-center">#}
-                {#                        <a href="/forgot-password">아이디 또는 비밀번호를 잊으셨나요?</a>#}
-                {#                    </div>#}
-                {##}
-                {#                    <div class="login_api text-center">#}
-                {#                        <a href="/oauth2/authorization/google"><img src="{% static 'btn_sign_in_with_google.png' %}"></a>#}
-                {#                    </div>#}
-                {##}
-                {#                </form>#}
-                {% include 'common/login.html' %}
+                {% include 'common/modal_login.html' %}
             </div>
 
             <!-- Modal footer -->

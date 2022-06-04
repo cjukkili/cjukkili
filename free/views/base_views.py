@@ -8,7 +8,7 @@ from common.models import College
 
 def index(request):
     question_list = Question.objects.filter(
-        Q(category='free')
+        Q(board_type_id='free')
     ).order_by('-create_date')
     page = request.GET.get('page', '1')  # 페이지
     kw = request.GET.get('kw', '')  # 검색어

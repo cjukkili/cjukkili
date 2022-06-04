@@ -20,7 +20,13 @@
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <td class="text-start">
-                            <a class="question_title" href="{% url 'board:detail' question.id %}" >{{ question.title }}
+                            <a class="question_title" href="{% url 'board:detail' question.id %}" >
+                                {% if question.category %}
+                                    [{{ question.category }}]
+                                {% else %}
+                                    [미분류]
+                                {% endif %}
+                                {{ question.title }}
                                 {% if question.answer_set.count > 0 %}
                                     [{{ question.answer_set.count }}]
                                 {% endif %}
@@ -80,19 +86,19 @@
         <!-- 페이징처리 끝 -->
 
     </div>
-{% if not college %}
-<form id="searchForm" method="get" action="{% url 'board:index' %}">
-    <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
-    <input type="hidden" id="page" name="page" value="{{ page }}">
-    <input type="hidden" id="so" name="so" value="{{ so }}">
-</form>
-{% else %}
-<form id="searchForm" method="get" action="{% url 'board:question_college_list' college %}">
-    <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
-    <input type="hidden" id="page" name="page" value="{{ page }}">
-    <input type="hidden" id="so" name="so" value="{{ so }}">
-</form>
-{% endif %}
+    {% if not college %}
+        <form id="searchForm" method="get" action="{% url 'board:index' %}">
+            <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+            <input type="hidden" id="page" name="page" value="{{ page }}">
+            <input type="hidden" id="so" name="so" value="{{ so }}">
+        </form>
+    {% else %}
+        <form id="searchForm" method="get" action="{% url 'board:question_college_list' college %}">
+            <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+            <input type="hidden" id="page" name="page" value="{{ page }}">
+            <input type="hidden" id="so" name="so" value="{{ so }}">
+        </form>
+    {% endif %}
 
 {% endblock %}
 {% block script %}

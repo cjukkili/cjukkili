@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 
 from board.models import Question
@@ -17,3 +18,13 @@ def question_college_list(request, college):
     college_list = College.objects.order_by('department')
     context = {'question_list': page_obj, 'college_list': college_list, 'college': college, 'page': page, 'kw': kw, 'so': so}
     return render(request, 'board/question_list.html', context)
+
+@login_required(login_url='common:login')
+def question_like(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.user == question.author:
+        from django.contrib import messages
+        messages.error(request, '본인이 작성한 글은 추천할수 없습니다')
+    else:
+        question.like.add(request.user)
+    return redirect('board:detail', question_id=question.id)

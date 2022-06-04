@@ -1,5 +1,15 @@
 .question_title{
+    font-weight: 400;
     text-decoration: none;
     color: black;
+
+}
+th, td{
+    vertical-align: middle;
+    font-weight: 400;
+    height: 56px;
+}
+
+td{
 
 }

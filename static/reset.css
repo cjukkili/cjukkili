@@ -29,7 +29,15 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+*{
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+.fa-solid, .fas {
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900;
+}
 body {
+
 	line-height: 1;
 	min-height: 860px;
 }
