@@ -6,7 +6,7 @@
         <div class="card-header article_header">
             <div class="article_title">
                 <div style="margin-bottom: 7px;">
-                    <a class="college_link" href="/college/?so={{ question.college }}">{{ question.college }} ></a>
+                    <a class="college_link" href="/free/?category_name={{ question.category }}">{{ question.category }} ></a>
                 </div>
                 <h3>{{ question.title }}</h3>
             </div>
@@ -44,9 +44,9 @@
             </div>
             <div>
                 {% if request.user == question.author %}
-                    <a href="{% url 'board:question_modify' question.id %}" class="btn btn-sm btn-outline-secondary">수정</a>
+                    <a href="{% url 'free:question_modify' question.id %}" class="btn btn-sm btn-outline-secondary">수정</a>
                     <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
-                       data-uri="{% url 'board:question_delete' question.id %}">삭제</a>
+                       data-uri="{% url 'free:question_delete' question.id %}">삭제</a>
                 {% endif %}
             </div>
         </div>

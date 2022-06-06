@@ -19,11 +19,16 @@
                         단과대학
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="collegeDropdownMenu">
-                        {% if college_list %}
-                            {% for college in college_list %}
-                                <li><a class="dropdown-item" href="/college?college_name={{ college.department }}">{{ college.department }}</a></li>
-                            {% endfor %}
-                        {% endif %}
+                        <li><a class="dropdown-item" href="/college/">전체</a></li>
+                        <li><a class="dropdown-item" href="/college?college_name=비즈니스대학">비즈니스대학</a></li>
+                        <li><a class="dropdown-item" href="/college?college_name=인문사회대학">인문사회대학</a></li>
+                        <li><a class="dropdown-item" href="/college?college_name=공과대학">공과대학</a></li>
+                        <li><a class="dropdown-item" href="/college?college_name=사범대학">사범대학</a></li>
+                        <li><a class="dropdown-item" href="/college?college_name=예술대학">예술대학</a></li>
+                        <li><a class="dropdown-item" href="/college?college_name=보건의료과학대학">보건의료과학대학</a></li>
+                        <li><a class="dropdown-item" href="/college?college_name=교양대학">교양대학</a></li>
+                        <li><a class="dropdown-item" href="/college?college_name=항공학부">항공학부</a></li>
+                        <li><a class="dropdown-item" href="/college?college_name=군사학과">군사학과</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

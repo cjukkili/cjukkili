@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'board.apps.BoardConfig',
     'common.apps.CommonConfig',
     'free.apps.FreeConfig',
+    'mypage.apps.MypageConfig',
 
     'django.contrib.sites',
     'allauth',

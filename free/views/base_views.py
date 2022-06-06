@@ -35,6 +35,6 @@ def detail(request, question_id):
 
     question.views += 1
     question.save()
-    context = {'question': question, 'college_list': college_list, 'page': page, 'kw': kw, 'so': so}
-    return render(request, 'board/question_detail.html', context)
+    context = {'question': question, 'page': page, 'kw': kw, 'so': so}
+    return render(request, 'free/free_detail.html', context)
 
