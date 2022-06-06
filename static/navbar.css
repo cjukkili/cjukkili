@@ -4,5 +4,10 @@
 }
 
 .nav-color{
-    background-color: coral;
+    background-color: #333;
 }
+
+.container-fluid{width: 70%;}
+.mg-auto{margin: 0 auto !important;}
+.mg-auto li{margin: 0 45px;}
+.mg-auto li a{color: white !important; font-weight: bold;}

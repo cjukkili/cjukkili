@@ -1,0 +1,142 @@
+@charset "utf-8";
+
+/******************
+Grid CSS
+*******************/
+.row {display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap: wrap;}
+.col-1 {-ms-flex: 0 0 8.333333%;flex: 0 0 8.333333%;max-width: 8.333333%;}
+.col-2 {-ms-flex: 0 0 16.666667%;flex: 0 0 16.666667%;max-width: 16.666667%;}
+.col-3 {-ms-flex: 0 0 25%;flex: 0 0 25%;max-width: 25%;}
+.col-4 {-ms-flex: 0 0 33.333333%;flex: 0 0 33.333333%;max-width: 33.333333%;}
+.col-5 {-ms-flex: 0 0 41.666667%;flex: 0 0 41.666667%;max-width: 41.666667%;}
+.col-6 {-ms-flex: 0 0 50%;flex: 0 0 50%;max-width: 50%;}
+.col-7 {-ms-flex: 0 0 58.333333%;flex: 0 0 58.333333%;max-width: 58.333333%;}
+.col-8 {-ms-flex: 0 0 66.666667%;flex: 0 0 66.666667%;max-width: 66.666667%;}
+.col-9 {-ms-flex: 0 0 75%;flex: 0 0 75%;max-width: 75%;}
+.col-10 {-ms-flex: 0 0 83.333333%;flex: 0 0 83.333333%;max-width: 83.333333%;}
+.col-11 {-ms-flex: 0 0 91.666667%;flex: 0 0 91.666667%;max-width: 91.666667%;}
+.col-12 {-ms-flex: 0 0 100%;flex: 0 0 100%;max-width: 100%;}
+
+/******************
+CSS option
+*******************/
+.mg-auto{margin: 0 auto;}
+.mt-50{margin-top: 50px;}
+.mt-70{margin-top: 70px;}
+.mt-100{margin-top: 100px;}
+.mb-70{margin-bottom: 70px;}
+.mb-100{margin-bottom: 100px;}
+.mtb-30{margin: 30px 0;}
+
+.text-center{text-align: center;}
+.login-btn{width: 100%; border-radius: 40px; background: #f7444e; color: white; height: 50px; border: none;}
+.signup-btn{width: 100%; border-radius: 40px; background: #f7444e; color: white; height: 50px; border: none;}
+.card-login{padding: 25px 0; border-bottom: 1px solid #ececec;}
+.card-login h2{font-size: 1.4rem;}
+.card-login h3{font-size: 1rem;}
+.card-header-login{margin: 0 auto;}
+.card-body-login{margin: 0 auto; padding-top: 25px;}
+
+.wrap{width: 70%; margin: 0 auto; overflow: visible;}
+
+/******************
+slick option
+*******************/
+.slide-section { margin: 0 auto; width: 70%; overflow: hidden;}
+
+.track-inner { margin: 0 auto; width: 72%; }
+.slick-track { height: 350px; margin-right: 0; }
+.slick-slider { width: 100%; }
+.slick-slide img{    
+	display: block;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;  
+    border-radius: 30px;
+}
+.slider-nav .slick-slide{
+	display: block;
+	width: calc(100vw/8);
+	height: calc(100vw/8);
+}
+.slider-nav .slick-slide img {
+	background-position: center center; 
+	background-size: cover;
+	width: calc(100vw/12);
+	height: calc(100vw/12);
+	margin: 50px auto;
+}
+ 
+.slick-dots {
+    display: flex;
+    justify-content: center;    
+    margin: 0;
+    padding: 1rem 0 2rem 0;    
+    list-style-type: none;  
+    top: 400px !important;
+    left: 600px !important;
+}
+.slick-dots li { margin: 0 0.25rem;}   
+.slick-dots button {
+	display: block;
+	width: 1rem;
+	height: 1rem;
+	padding: 0;         
+	border: 1px solid black;
+	border-radius: 100%;
+	background-color: rgba(255,255,255, 0.5);           
+	text-indent: -9999px;
+	cursor: pointer;
+} 
+.slick-dots li.slick-active button {background-color: black;}
+.slick-prev,
+.slick-next {
+    font-size: 0;
+    position: absolute;
+    bottom: 20px;
+    color: #111111;;
+    border: 0;
+    background: none;
+    z-index: 1;
+    top: 0px;
+    cursor: pointer;
+}
+.slick-prev {
+    left: 0px;
+	background: url('./leftArrow-off.svg') no-repeat center center;
+	width: 4%;
+	height: 100%;
+}
+.slick-next {
+    right: 0px;
+	background: url('./rightArrow-off.svg') no-repeat center center;
+    text-align: right;
+	width: 4%;
+	height: 100%;
+}
+
+.card { height: 99%; margin: 0 15%; border: 1px solid #ececec; }
+.card-header{ height: 33%; border: 1px solid #ececec;}
+.card-img { height: 66%; }
+
+/******************
+card option
+*******************/
+.card1{
+    background-image: url('./image6.jpeg');
+    width: 100%;
+    height: 500px;
+    background-repeat: no-repeat;
+}
+.card2{
+    background-image: url('./image7.jpeg');
+    width: 100%;
+    height: 500px;
+    background-repeat: no-repeat;
+}
+.card3{
+    background-image: url('./image9.jpeg');
+    width: 100%;
+    height: 500px;
+    background-repeat: no-repeat;
+}
