@@ -7,6 +7,7 @@ from board.forms import CommentForm
 from board.models import Question, Comment
 from common.models import College
 
+
 @login_required(login_url='common:login')
 def comment_create(request, question_id):
     question = get_object_or_404(Question, pk=question_id)

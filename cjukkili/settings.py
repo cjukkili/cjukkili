@@ -41,6 +41,12 @@ INSTALLED_APPS = [
     'board.apps.BoardConfig',
     'common.apps.CommonConfig',
     'free.apps.FreeConfig',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -85,8 +91,6 @@ DATABASES = {
 }
 # User모델 추가
 AUTH_USER_MODEL = 'common.User'
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -136,6 +140,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_SIGNUP_FORM_CLASS = "common.forms.UserForm"
+SOCIALACCOUNT_AUTO_SIGNUP = False
+# 로그인 세션 닫았을 때
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # 로그인 성공 후 이동 페이지 설정
 LOGIN_REDIRECT_URL = '/'

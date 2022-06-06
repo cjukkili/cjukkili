@@ -9,7 +9,30 @@ th, td{
     font-weight: 400;
     height: 56px;
 }
-
-td{
-
+.page-link {
+    font-family: 'Montserrat', sans-serif !important;
+}
+.page_before_disable{
+    background-image: url("https://img.nhn-commerce.com/godomall_v2/customer/btn_arr_prev_on.png");
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 50%;
+}
+.page_before {
+    background-image: url("https://img.nhn-commerce.com/godomall_v2/customer/btn_arr_prev.png");
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 50%;
+}
+.page_next {
+    background-image: url("https://img.nhn-commerce.com/godomall_v2/customer/btn_arr_next.png");
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 50%;
+}
+.page_next_disable {
+    background-image: url("https://img.nhn-commerce.com/godomall_v2/customer/btn_arr_next_on.png");
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 50%;
 }

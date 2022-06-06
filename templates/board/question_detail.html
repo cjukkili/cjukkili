@@ -6,7 +6,7 @@
         <div class="card-header article_header">
             <div class="article_title">
                 <div style="margin-bottom: 7px;">
-                    <a class="college_link" href="{% url 'board:question_college_list' question.college %}">{{ question.college }} ></a>
+                    <a class="college_link" href="/college/?so={{ question.college }}">{{ question.college }} ></a>
                 </div>
                 <h3>{{ question.title }}</h3>
             </div>
@@ -36,14 +36,24 @@
                 {{ question.content|linebreaks }}
             </div>
         </div>
-        <div class="heart_box pb-2">
-            <a class="text-decoration-none recommend" style="color: black" href="javascript:void(0)" data-uri="{% url 'board:question_like' question.id  %}"><i class="fa-solid fa-heart" style="color: red"></i> 좋아요 {{question.like.count}}</a>
-            <i class="fa-solid fa-comment-dots ms-1"> 댓글 {{ question.comment_set.count }}</i>
+
+        <div class="d-flex justify-content-between">
+            <div class="heart_box pb-2">
+                <a class="text-decoration-none recommend" style="color: black" href="javascript:void(0)" data-uri="{% url 'board:question_like' question.id  %}"><i class="fa-solid fa-heart" style="color: red"></i> 좋아요 {{question.like.count}}</a>
+                <i class="fa-solid fa-comment-dots ms-1"> 댓글 {{ question.comment_set.count }}</i>
+            </div>
+            <div>
+                {% if request.user == question.author %}
+                    <a href="{% url 'board:question_modify' question.id %}" class="btn btn-sm btn-outline-secondary">수정</a>
+                    <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+                       data-uri="{% url 'board:question_delete' question.id %}">삭제</a>
+                {% endif %}
+            </div>
         </div>
 
         {#댓글 영역#}
         <div class="card-footer comment_box">
-        <h5 class="fw-bold">댓글</h5>
+            <h5 class="fw-bold">댓글</h5>
             <div>
                 {% for comment in question.comment_set.all  %}
                     <div class="d-flex flex-column">
@@ -94,8 +104,18 @@
         }
         const recommend_elements = document.getElementsByClassName("recommend");
         Array.from(recommend_elements).forEach(function(element) {
+            element.addEventListener('click', function () {
+                if (confirm("정말로 추천하시겠습니까?")) {
+                    location.href = this.dataset.uri;
+                }
+                ;
+            });
+        });
+
+        const delete_elements = document.getElementsByClassName("delete");
+        Array.from(delete_elements).forEach(function(element) {
             element.addEventListener('click', function() {
-                if(confirm("정말로 추천하시겠습니까?")) {
+                if(confirm("정말로 삭제하시겠습니까?")) {
                     location.href = this.dataset.uri;
                 };
             });

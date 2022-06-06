@@ -20,7 +20,7 @@
                     <ul class="dropdown-menu" aria-labelledby="collegeDropdownMenu">
                         {% if college_list %}
                             {% for college in college_list %}
-                                <li><a class="dropdown-item" href="{% url 'board:question_college_list' college.department %}">{{ college.department }}</a></li>
+                                <li><a class="dropdown-item" href="/college?so={{ college.department }}">{{ college.department }}</a></li>
                             {% endfor %}
                         {% endif %}
                     </ul>
@@ -31,6 +31,38 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'free:index' %}">자유게시판</a>
                 </li>
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                        <a class="btn btn-primary" href="{% url 'common:logout' %}">{{ user.username }}(로그아웃)</a>
+                    {% else %}
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            Login
+                        </button>
+                    {% endif %}
+                </li>
+                <!-- 로그인 모달 시작 -->
+                <div class="modal" id="loginModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">로그인</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                {% include 'common/modal_login.html' %}
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 로그인 모달 끝 -->
             </ul>
         </div>
     </div>

@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path, include
 from django.conf import settings
+
+import common.views.account_views
 from common.views import base_views
 
 urlpatterns = [
@@ -25,5 +27,6 @@ urlpatterns = [
     path('college/', include('board.urls')),
     path('common/', include('common.urls')),
     path('free/', include('free.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
