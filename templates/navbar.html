@@ -20,7 +20,7 @@
                     <ul class="dropdown-menu" aria-labelledby="collegeDropdownMenu">
                         {% if college_list %}
                             {% for college in college_list %}
-                                <li><a class="dropdown-item" href="/college?so={{ college.department }}">{{ college.department }}</a></li>
+                                <li><a class="dropdown-item" href="/college?college_name={{ college.department }}">{{ college.department }}</a></li>
                             {% endfor %}
                         {% endif %}
                     </ul>
