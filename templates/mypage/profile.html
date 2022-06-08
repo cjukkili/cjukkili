@@ -36,14 +36,16 @@
                     <tr>
                         <td class="">{{ forloop.counter }}</td>
                         <td>
-                            {% if question.college %}
-                                {{ question.college }}
+                            {% if question.board_type.target == 'club' %}
+                                동아리
+                            {% elif question.board_type.target == 'free' %}
+                                자유게시판
                             {% else %}
-                                미분류
+                                {{ question.college }}
                             {% endif %}
                         </td>
                         <td class="text-start">
-                            <a class="question_title" href="{% url 'board:detail' question.id %}" >{{ question.title }}
+                            <a class="question_title" href="{% url 'board:detail' question.id %}" >{{ question.title|truncatechars:40 }}
                                 {% if question.imgs %}
                                     <i class="fa-solid fa-image"></i>
                                 {% endif %}
@@ -91,7 +93,7 @@
                             {% endif %}
                         </td>
                         <td class="text-start">
-                            <a class="question_title" href="{% url 'board:detail' comment.question.id %}" >{{ comment.content }}
+                            <a class="question_title" href="{% url 'board:detail' comment.question.id %}" >{{ comment.content|truncatechars:40 }}
                             </a>
                         </td>
                         <td>{{ comment.author.nickname }}</td>

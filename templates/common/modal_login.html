@@ -17,7 +17,7 @@
             </div>
             <div class="row justify-content-center" style="">
                 <button type="submit" class="btn btn-primary col-3 px-2 mx-3">로그인</button>
-                <a class="btn btn-primary col-3 px-2 mx-3">회원가입</a>
+                <a class="btn btn-primary col-3 px-2 mx-3" href="{% url 'common:signup' %}">회원가입</a>
             </div>
             <div>
                 <a href="{% provider_login_url 'google' %}"><img src="{% static 'btn_sign_in_with_google.png' %}"></a>

@@ -18,7 +18,6 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from django.conf import settings
 
-import common.views.account_views
 from common.views import base_views
 
 urlpatterns = [
@@ -28,6 +27,7 @@ urlpatterns = [
     path('common/', include('common.urls')),
     path('free/', include('free.urls')),
     path('accounts/', include('allauth.urls')),
-    path('mypage/', include('mypage.urls'))
+    path('mypage/', include('mypage.urls')),
+    path('club/', include('club.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

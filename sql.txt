@@ -1,1 +1,10 @@
-CREATE TABLE "board_question" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "title" varchar(200) NOT NULL, "content" text NOT NULL, "create_date" datetime NOT NULL, "modify_date" datetime NOT NULL, "views" integer NOT NULL, "imgs" varchar(100) NULL, "author_id" varchar(100) NULL REFERENCES "common_user" ("nickname") ON UPDATE CASCADE DEFERRABLE INITIALLY DEFERRED, "college_id" varchar(50) NULL REFERENCES "common_college" ("department") DEFERRABLE INITIALLY DEFERRED)
+INSERT INTO "main"."common_college" ("id", "department") VALUES ('1', '비즈니스대학');
+INSERT INTO "main"."common_college" ("id", "department") VALUES ('2', '인문사회대학');
+INSERT INTO "main"."common_college" ("id", "department") VALUES ('3', '공과대학');
+INSERT INTO "main"."common_college" ("id", "department") VALUES ('4', '사범대학');
+INSERT INTO "main"."common_college" ("id", "department") VALUES ('5', '예술대학');
+INSERT INTO "main"."common_college" ("id", "department") VALUES ('6', '보건의료과학대학');
+INSERT INTO "main"."common_college" ("id", "department") VALUES ('7', '교양대학');
+INSERT INTO "main"."common_college" ("id", "department") VALUES ('8', '항공학부');
+INSERT INTO "main"."common_college" ("id", "department") VALUES ('9', '군사학과');
+INSERT INTO "main"."common_college" ("id", "department") VALUES ('10', '미분류');

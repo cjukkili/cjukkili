@@ -1,6 +1,6 @@
-{% extends "board/question_base.html" %}
+{% extends "club/club_base.html" %}
 {% load static %}
-{% block board_content %}
+{% block club_content %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
@@ -9,20 +9,14 @@
         <div class="d-flex flex-row justify-content-between">
             <div class="input-group">
                 <div class="my-auto">총 {{ question_num }}건</div>
-                <select class="my-3 ms-2 college_name" name="categoryType">
-                    <option value="">전체</option>
-                    {% for college in college_list %}
-                        <option value="{{ college.department }}" {% if college_name == college.department %}selected{% endif %}>{{ college.department }}</option>
-                    {% endfor %}
-                </select>
             </div>
             <div class="row my-3">
                 <div class="">
                     <div class="input-group">
-                        <select class="me-2" name="searchType">
-                            <option value="" selected="selected">제목+내용</option>
-                            <option value="제목">제목</option>
-                            <option value="내용">내용</option>
+                        <select class="me-2 searchType" name="searchType">
+                            <option value="1" selected>제목+내용</option>
+                            <option value="2">제목</option>
+                            <option value="3">내용</option>
                         </select>
                         <input type="text" id="search_kw" class="form-control" value="{{ kw|default_if_none:'' }}">
                         <div class="input-group-append">
@@ -49,18 +43,12 @@
                 {% for question in question_list %}
                     <tr>
                         <td class="">{{ forloop.counter }}</td>
-                        <td>
-                            {% if question.college %}
-                                {{ question.college }}
-                            {% else %}
-                                미분류
-                            {% endif %}
-                        </td>
+                        <td>동아리</td>
                         <td class="text-start">
-                            <a class="question_title" href="{% url 'board:detail' question.id %}" >{{ question.title|truncatechars:40 }}
-                            {% if question.imgs %}
-                                <i class="fa-solid fa-image"></i>
-                            {% endif %}
+                            <a class="question_title" href="{% url 'club:detail' question.id %}" >{{ question.title|truncatechars:40 }}
+                                {% if question.imgs %}
+                                    <i class="fa-solid fa-image"></i>
+                                {% endif %}
                                 {% if question.comment_set.count > 0 %}
                                     <span class="text-danger small mx-2">[{{ question.comment_set.count }}]</span>
                                 {% endif %}
@@ -82,7 +70,7 @@
 
         {#게시글 버튼#}
         {% if user.is_authenticated %}
-            <a href="{% url 'board:question_create' %}" class="btn btn-primary">게시글 작성</a>
+            <a href="{% url 'club:question_create' %}" class="btn btn-primary">게시글 작성</a>
         {% endif %}
 
         <!-- 페이징처리 시작 -->
@@ -125,19 +113,12 @@
         <!-- 페이징처리 끝 -->
 
     </div>
-    {% if not college %}
-        <form id="searchForm" method="get" action="{% url 'board:index' %}">
-            <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
-            <input type="hidden" id="page" name="page" value="{{ page }}">
-            <input type="hidden" id="college_name" name="college_name" value="{{ college_name }}">
-        </form>
-    {% else %}
-        <form id="searchForm" method="get" action="{% url 'board:question_college_list' college %}">
-            <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
-            <input type="hidden" id="page" name="page" value="{{ page }}">
-            <input type="hidden" id="college_name" name="college_name" value="{{ college_name }}">
-        </form>
-    {% endif %}
+    <form id="searchForm" method="get" action="{% url 'club:index' %}">
+        <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+        <input type="hidden" id="page" name="page" value="{{ page }}">
+        <input type="hidden" id="category_name" name="category_name" value="{{ category_name }}">
+        <input type="hidden" class="searchType" id="searchType" name="searchType" value="{{ searchType|default_if_none:'1' }}">
+    </form>
 
 {% endblock %}
 {% block script %}
@@ -154,10 +135,13 @@
                 document.getElementById('page').value = 1;  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
                 document.getElementById('searchForm').submit();
             });
-            $(".college_name").on('change', function() {
-                $("#college_name").val($(this).val());
+            $(".category_name").on('change', function() {
+                $("#category_name").val($(this).val());
                 $("#page").val(1);
                 $("#searchForm").submit();
+            });
+            $(".searchType").on('change', function() {
+                $(".searchType").val($(this).val());
             });
 
         });

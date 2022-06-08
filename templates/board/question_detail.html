@@ -6,7 +6,7 @@
         <div class="card-header article_header">
             <div class="article_title">
                 <div style="margin-bottom: 7px;">
-                    <a class="college_link" href="/free/?category_name={{ question.category }}">{{ question.category }} ></a>
+                    <a class="college_link" href="/college/?category_name={{ question.college }}">{{ question.college }} ></a>
                 </div>
                 <h3>{{ question.title }}</h3>
             </div>
@@ -105,7 +105,7 @@
         const recommend_elements = document.getElementsByClassName("recommend");
         Array.from(recommend_elements).forEach(function(element) {
             element.addEventListener('click', function () {
-                if (confirm("정말로 추천하시겠습니까?")) {
+                if (confirm("정말로 좋아요를 누르시겠습니까?")) {
                     location.href = this.dataset.uri;
                 }
                 ;

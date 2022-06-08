@@ -19,10 +19,10 @@
             <div class="row my-3">
                 <div class="">
                     <div class="input-group">
-                        <select class="me-2" name="searchType">
-                            <option value="" selected="selected">제목+내용</option>
-                            <option value="제목">제목</option>
-                            <option value="내용">내용</option>
+                        <select class="me-2 searchType" name="searchType">
+                            <option value="1" selected>제목+내용</option>
+                            <option value="2">제목</option>
+                            <option value="3">내용</option>
                         </select>
                         <input type="text" id="search_kw" class="form-control" value="{{ kw|default_if_none:'' }}">
                         <div class="input-group-append">
@@ -57,7 +57,7 @@
                             {% endif %}
                         </td>
                         <td class="text-start">
-                            <a class="question_title" href="{% url 'free:detail' question.id %}" >{{ question.title }}
+                            <a class="question_title" href="{% url 'free:detail' question.id %}" >{{ question.title|truncatechars:40 }}
                                 {% if question.imgs %}
                                     <i class="fa-solid fa-image"></i>
                                 {% endif %}
@@ -129,6 +129,7 @@
         <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
         <input type="hidden" id="page" name="page" value="{{ page }}">
         <input type="hidden" id="category_name" name="category_name" value="{{ category_name }}">
+        <input type="hidden" class="searchType" id="searchType" name="searchType" value="{{ searchType|default_if_none:'1' }}">
     </form>
 
 {% endblock %}
@@ -150,6 +151,9 @@
                 $("#category_name").val($(this).val());
                 $("#page").val(1);
                 $("#searchForm").submit();
+            });
+            $(".searchType").on('change', function() {
+                $(".searchType").val($(this).val());
             });
 
         });

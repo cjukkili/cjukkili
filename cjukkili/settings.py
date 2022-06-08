@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'free.apps.FreeConfig',
     'mypage.apps.MypageConfig',
+    'club.apps.ClubConfig',
 
     'django.contrib.sites',
     'allauth',
@@ -151,8 +152,6 @@ SITE_ID = 1
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-ACCOUNT_SIGNUP_FORM_CLASS = "common.forms.UserForm"
-SOCIALACCOUNT_AUTO_SIGNUP = False
 # 로그인 세션 닫았을 때
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 

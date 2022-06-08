@@ -1,12 +1,12 @@
-{% extends "free/free_base.html" %}
+{% extends "club/club_base.html" %}
 {% load static %}
-{% block free_content %}
+{% block club_content %}
     <link rel="stylesheet" type="text/css" href="{% static 'question_detail.css' %}">
     <div class="card article_card mb-4">
         <div class="card-header article_header">
             <div class="article_title">
                 <div style="margin-bottom: 7px;">
-                    <a class="college_link" href="/free/?category_name={{ question.category }}">{{ question.category }} ></a>
+                    <a class="college_link" href="/club/">이전페이지 ></a>
                 </div>
                 <h3>{{ question.title }}</h3>
             </div>
@@ -44,9 +44,9 @@
             </div>
             <div>
                 {% if request.user == question.author %}
-                    <a href="{% url 'free:question_modify' question.id %}" class="btn btn-sm btn-outline-secondary">수정</a>
+                    <a href="{% url 'club:question_modify' question.id %}" class="btn btn-sm btn-outline-secondary">수정</a>
                     <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
-                       data-uri="{% url 'free:question_delete' question.id %}">삭제</a>
+                       data-uri="{% url 'club:question_delete' question.id %}">삭제</a>
                 {% endif %}
             </div>
         </div>
@@ -78,7 +78,7 @@
             </div>
 
             <div class="card p-2 comment_input_box" style="margin: 0">
-                <form action="{% url 'free:comment_create' question.id %}" method="post">
+                <form action="{% url 'club:comment_create' question.id %}" method="post">
                     {% csrf_token %}
                     <div class="comment_input_info">
                         <div class="comment_input_username">{{ request.user }}</div>
