@@ -1,4 +1,16 @@
 @charset "utf-8";
+html,
+body {
+   margin:0;
+   padding:0;
+   height:100%;
+}
+
+.contents-wrap{
+    min-height:100%;
+    position:relative;
+    padding-bottom:100px;
+}
 
 /******************
 Grid CSS
@@ -139,4 +151,13 @@ card option
     width: 100%;
     height: 500px;
     background-repeat: no-repeat;
+}
+
+/******************
+footer option
+*******************/
+.custom-footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
