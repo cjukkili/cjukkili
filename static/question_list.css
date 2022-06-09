@@ -36,3 +36,9 @@ th, td{
     background-position-x: 50%;
     background-position-y: 50%;
 }
+
+.board-title{
+    margin: 30px 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}

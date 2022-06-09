@@ -26,99 +26,129 @@
         {% include 'navbar.html' %}
         <div class="wrap">
             {% block content %}
-                        <div class="col-12 row mt-50">
-                            <div class="col-9">
-                                <div class="slide-section">
-                                    <div>
-                                        <img class="logo" src="{% static 'image6.jpeg' %}">
-                                    </div>
-                                    <div>
-                                        <img class="logo" src="{% static 'image7.jpeg' %}">
-                                    </div>
-                                    <div>
-                                        <img class="logo" src="{% static 'image9.jpeg' %}">
-                                    </div>
-                                </div>
+                <div class="col-12 row mt-50">
+                    <div class="col-9">
+                        <div class="slide-section">
+                            <div>
+                                <img class="logo" src="{% static 'image6.jpeg' %}">
                             </div>
-                            <div class="col-3">
-                                <div class="col-12 card-login text-center">
-                                    {% if not request.user.is_authenticated %}
-                                        <div class="card-header-login">
-                                            <h2>청대끼리에 오신걸 환영합니다.</h2>
-                                            <h3>다양한 커뮤니티 활동을 즐겨보세요.</h3>
-                                        </div>
-                                        <div class="col-12 row card-body-login">
-                                            <div class="col-6 text-center">
-                                                <button class="login-btn" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</button>
-                                            </div>
-                                            <div class="col-6 text-center">
-                                                <button class="signup-btn my-auto" type="button" onclick="location.href='{% url 'common:signup' %}'" >회원가입</button>
-                                            </div>
-                                        </div>
-                                    {% else %}
-                                        <div class="card-header-login">
-                                            <h2>안녕하세요. {{ request.user }}님</h2>
-                                            <h3>종강까지 {{ today|timesince:target_date }} 남았어요!</h3>
-                                        </div>
-                                        <div class="col-12 row card-body-login">
-                                            <div class="col-6 text-center">
-                                                <button class="login-btn" type="button" onclick="location.href='{% url 'mypage:index' %}'">마이페이지</button>
-                                            </div>
-                                            <div class="col-6 text-center">
-                                                <button class="signup-btn my-auto" type="button" onclick="location.href='{% url 'common:logout' %}'" >로그아웃</button>
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                {#                    <h3 class="my-5">종강까지 {{ today|timesince:target_date }}남았어요!</h3>#}
-                                <table class="table table-sm text-center">
-                                    <thead><th>이달의 학사 일정</th><th>시작일</th><th>종료일</th></thead>
-                                    <tbody>
-                                    {% if cal %}
-                                        {% for c in cal %}
-                                            <tr><td>{{ c.content|truncatechars:11 }}</td><td>{{ c.start_date|date:"y-m-d" }}</td><td>{{ c.end_date|date:"y-m-d" }}</td></tr>
-                                        {% endfor %}
-                                    {% else %}
-                                        <tr><td colspan="3">이번달은 일정이 없어요!</td> </tr>
-                                    {% endif %}
-                                    </tbody>
-                                </table>
+                            <div>
+                                <img class="logo" src="{% static 'image7.jpeg' %}">
+                            </div>
+                            <div>
+                                <img class="logo" src="{% static 'image9.jpeg' %}">
                             </div>
                         </div>
-                        <div class="col-12 mt-70 text-center">
-                            <div class="col-12 mb-70">
-                                <h2>모두가 행복하게 생활하는 청대끼리</h2>
+                    </div>
+                    <div class="col-3">
+                        <div class="col-12 card-login text-center card-hover">
+                            {% if not request.user.is_authenticated %}
+                                <div class="card-header-login">
+                                    <h2>청대끼리에 오신걸 환영합니다.</h2>
+                                    <h3>다양한 커뮤니티 활동을 즐겨보세요.</h3>
+                                </div>
+                                <div class="col-12 row card-body-login">
+                                    <div class="col-6 text-center">
+                                        <button class="login-btn" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</button>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <button class="signup-btn my-auto" type="button" onclick="location.href='{% url 'common:signup' %}'" >회원가입</button>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="card-header-login">
+                                    <h2>안녕하세요. {{ request.user }}님</h2>
+                                    <h3>종강까지 {{ today|timesince:target_date }} 남았어요!</h3>
+                                </div>
+                                <div class="col-12 row card-body-login">
+                                    <div class="col-6 text-center">
+                                        <button class="login-btn" type="button" onclick="location.href='{% url 'mypage:index' %}'">마이페이지</button>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <button class="signup-btn my-auto" type="button" onclick="location.href='{% url 'common:logout' %}'" >로그아웃</button>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        {#<h3 class="my-5">종강까지 {{ today|timesince:target_date }}남았어요!</h3>#}
+                        <div class="mt-20">
+                            <table class="table table-sm text-center">
+                                <thead><th>이달의 학사 일정</th><th>시작일</th><th>종료일</th></thead>
+                                <tbody>
+                                {% if cal %}
+                                    {% for c in cal %}
+                                        <tr><td>{{ c.content|truncatechars:11 }}</td><td>{{ c.start_date|date:"y-m-d" }}</td><td>{{ c.end_date|date:"y-m-d" }}</td></tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr><td colspan="3">이번달은 일정이 없어요!</td> </tr>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-30 text-center">
+                    <div class="col-12 row">
+                        <div class="col-9 mb-40">
+                            <h2>모두가 행복하게 생활하는 청대끼리</h2>
+                        </div>
+                        <div class="col-3"></div>
+                    </div>
+                    <div class="col-12 row">
+                        <div class="col-9 row mg-auto">
+                            <div class="col-4">
+                                <div class="card-hover">
+                                    <a>
+                                        <div class="col-12">
+                                            <div class="card1"></div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mtb-30">
+                                                <h4>comment section</h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="col-12 row mg-auto">
-                                <div class="col-4">
+                            <div class="col-4">
+                                <div class="card-hover">
                                     <a>
-                                        <div class="card1"></div>
-                                        <div class="mtb-30">
-                                            <h4>comment section</h4>
+                                        <div class="col-12">
+                                            <div class="card2"></div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mtb-30">
+                                                <h4>comment section</h4>
+                                            </div>
                                         </div>
                                     </a>
                                 </div>
-                                <div class="col-4">
+                            </div>
+                            <div class="col-4">
+                                <div class="card-hover">
                                     <a>
-                                        <div class="card2"></div>
-                                        <div class="mtb-30">
-                                            <h4>comment section</h4>
+                                        <div class="col-12">
+                                            <div class="card3"></div>
                                         </div>
-                                    </a>
-                                </div>
-                                <div class="col-4">
-                                    <a>
-                                        <div class="card3"></div>
-                                        <div class="mtb-30">
-                                            <h4>comment section</h4>
+                                        <div class="col-12">
+                                            <div class="mtb-30">
+                                                <h4>comment section</h4>
+                                            </div>
                                         </div>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div class="col-3">
+                            <div class="col-12">
 
+                            </div>
+                            <div class="col-12">
+
+                            </div>
                         </div>
+                    </div>
+                </div>
             {% endblock %}
         </div>
         {% include 'footer.html' %}

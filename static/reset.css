@@ -30,7 +30,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 *{
-	font-family: 'Noto Sans KR', sans-serif !important;
+	font-family: 'Noto Sans KR', bold !important;
 }
 .fa-solid, .fas {
     font-family: "Font Awesome 6 Free" !important;

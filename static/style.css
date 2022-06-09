@@ -1,15 +1,17 @@
 @charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 html,
 body {
    margin:0;
    padding:0;
    height:100%;
+   font-family: 'Noto Sans KR';
 }
 
 .contents-wrap{
     min-height:100%;
     position:relative;
-    padding-bottom:100px;
+    padding-bottom: 200px;
 }
 
 /******************
@@ -33,17 +35,22 @@ Grid CSS
 CSS option
 *******************/
 .mg-auto{margin: 0 auto;}
+.mt-20{margin-top: 20px;}
+.mt-30{margin-top: 30px;}
 .mt-50{margin-top: 50px;}
 .mt-70{margin-top: 70px;}
 .mt-100{margin-top: 100px;}
+.mb-40{margin-bottom: 40px;}
 .mb-70{margin-bottom: 70px;}
 .mb-100{margin-bottom: 100px;}
 .mtb-30{margin: 30px 0;}
 
+.pb-30{padding-bottom: 30px;}
+
 .text-center{text-align: center;}
 .login-btn{width: 100%; border-radius: 40px; background: #f7444e; color: white; height: 50px; border: none;}
 .signup-btn{width: 100%; border-radius: 40px; background: #f7444e; color: white; height: 50px; border: none;}
-.card-login{padding: 25px 0; border-bottom: 1px solid #ececec;}
+.card-login{padding: 15px 0; border-bottom: 1px solid #ececec;}
 .card-login h2{font-size: 1.4rem;}
 .card-login h3{font-size: 1rem;}
 .card-header-login{margin: 0 auto;}
@@ -137,20 +144,41 @@ card option
 .card1{
     background-image: url('./image6.jpeg');
     width: 100%;
-    height: 500px;
+    height: 400px;
     background-repeat: no-repeat;
 }
 .card2{
     background-image: url('./image7.jpeg');
     width: 100%;
-    height: 500px;
+    height: 400px;
     background-repeat: no-repeat;
 }
 .card3{
     background-image: url('./image9.jpeg');
     width: 100%;
-    height: 500px;
+    height: 400px;
     background-repeat: no-repeat;
+}
+
+.card-hover{
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    vertical-align: top;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px rgba(150, 150, 150, 0.1),
+    -5px -5px 10px rgba(150, 150, 150, 0.1);
+    transition: top 0.5s;
+    top: 0;
+}
+
+.card-hover:hover{
+    transition: top 0.5s;
+    top: -5px;
+    box-shadow: 10px 10px 10px rgba(50, 50, 50, 0.1),
+    -5px -5px 10px rgba(50, 50, 50, 0.1);
 }
 
 /******************
@@ -160,4 +188,16 @@ footer option
     position: absolute;
     bottom: 0;
     width: 100%;
+    height: 150px;
 }
+
+/******************
+mypage option
+*******************/
+.mypage-title{margin: 30px 0;}
+.mypage-title h1{font-size: 1.8rem; font-weight: 700;}
+
+.mypage-board, .mypage-comment{margin: 25px 0;}
+.mypage-board h1, .mypage-comment h1{font-size: 1rem; font-weight: 700;}
+
+.custom-border{border-bottom: dashed; border-bottom-color: #acacac;}
