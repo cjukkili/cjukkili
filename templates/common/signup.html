@@ -4,67 +4,7 @@
         <form method="post" action="{% url 'common:signup' %}">
             {% csrf_token %}
             {% include "form_errors.html" %}
-            <div class="mb-3">
-                <label for="username">아이디</label>
-                <input type="text" class="form-control" name="username" id="username"
-                       value="{{ form.username.value|default_if_none:'' }}">
-            </div>
-            <div class="mb-3">
-                <label for="password1">비밀번호</label>
-                <input type="password" class="form-control" name="password1" id="password1"
-                       value="{{ form.password1.value|default_if_none:'' }}">
-            </div>
-            <div class="mb-3">
-                <label for="password2">비밀번호 확인</label>
-                <input type="password" class="form-control" name="password2" id="password2"
-                       value="{{ form.password2.value|default_if_none:'' }}">
-            </div>
-            <div class="mb-3">
-                <label for="username">성</label>
-                <input type="text" class="form-control" name="first_name" id="first_name"
-                       value="{{ form.first_name.value|default_if_none:'' }}">
-            </div>
-            <div class="mb-3">
-                <label for="username">이름</label>
-                <input type="text" class="form-control" name="last_name" id="last_name"
-                       value="{{ form.last_name.value|default_if_none:'' }}">
-            </div>
-            <div class="mb-3">
-                <label for="nickname">닉네임</label>
-                <input type="text" class="form-control" name="nickname" id="nickname"
-                       value="{{ form.nickname.value|default_if_none:'' }}">
-            </div>
-            <div class="mb-3">
-                <label for="email">이메일</label>
-                <input type="text" class="form-control" name="email" id="email"
-                       value="{{ form.email.value|default_if_none:'' }}">
-            </div>
-
-            <div class="mb-3">
-                <label for="email">성별</label>
-                <select class="form-control" name="gender" required id="id_gender">
-                    <option value="" selected>---------</option>
-                    <option value="1">남성</option>
-                    <option value="2">여성</option>
-                    <option value="3">비공개</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="email">단과대학</label>
-                <select class="form-control" name="college" required id="id_college">
-                    <option value="" selected>---------</option>
-                    <option value="비지니스대학">비지니스대학</option>
-                    <option value="인문사회대학">인문사회대학</option>
-                    <option value="공과대학">공과대학</option>
-                    <option value="사범대학">사범대학</option>
-                    <option value="예술대학">예술대학</option>
-                    <option value="보건의료과학대학">보건의료과학대학</option>
-                    <option value="교양대학">교양대학</option>
-                    <option value="항공학부">항공학부</option>
-                    <option value="군사학과">군사학과</option>
-                </select>
-            </div>
+            {{ form.as_p }}
             <button type="submit" class="btn btn-primary">생성하기</button>
         </form>
     </div>

@@ -77,7 +77,8 @@ def question_modify(request, question_id):
         form = FreeQuestionForm(request.POST, instance=question)
         if form.is_valid():
             img = request.FILES.get('imgs')
-            question.imgs = img
+            if img:
+                question.imgs = img
             question = form.save(commit=False)
             question.save()
             return redirect('free:detail', question_id=question.id)

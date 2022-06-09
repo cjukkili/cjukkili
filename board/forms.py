@@ -12,14 +12,17 @@ class CommentForm(forms.ModelForm):
 
 
 class QuestionForm(forms.ModelForm):
+
     class Meta:
         model = Question  # 사용할 모델
         fields = ['title', 'college', 'content', 'imgs']
+        field_classes = {
+
+        }
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'content': forms.Textarea(attrs={'class': 'form-control'}),
             'college': forms.Select(attrs={'class': 'form-control'}),
-            'imgs': forms.FileInput(attrs={'class': 'form-control', 'accept': 'image/*'})
         }
         labels = {
             'title': '제목',

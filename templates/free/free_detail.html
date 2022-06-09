@@ -58,7 +58,7 @@
                 {% for comment in question.comment_set.all  %}
                     <div class="d-flex flex-column">
                         <div class="user_comment d-flex flex-row align-items-center">
-                            <img src="{{ comment.author.profile_img.url }}" style="height: 36px; width: 36px;">
+                            <img class="mb-auto mt-1" src="{{ comment.author.profile_img.url }}" style="height: 36px; width: 36px;">
                             <div class="comment_content">
                                 <div class="d-flex flex-row" style="font-weight: bold">
                                     {{ comment.author }}
@@ -66,7 +66,7 @@
                                         <div class="border-1 rounded-pill text-center ms-1 px-1 d-flex align-items-center" style="background-color: #dfc2c4; font-size: 8px; font-weight: bold">작성자</div>
                                     {% endif %}
                                 </div>
-                                <div>{{ comment.content }}</div>
+                                <div>{{ comment.content|linebreaks }}</div>
 
                             </div>
 

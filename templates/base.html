@@ -74,16 +74,18 @@
                         {% endif %}
                     </div>
                     {#                    <h3 class="my-5">종강까지 {{ today|timesince:target_date }}남았어요!</h3>#}
-                    {% if cal %}
-                        <table class="table table-sm text-center">
-                            <thead><th>이달의 학사 일정</th><th>시작일</th><th>종료일</th></thead>
-                            <tbody>
+                    <table class="table table-sm text-center">
+                        <thead><th>이달의 학사 일정</th><th>시작일</th><th>종료일</th></thead>
+                        <tbody>
+                        {% if cal %}
                             {% for c in cal %}
                                 <tr><td>{{ c.content|truncatechars:11 }}</td><td>{{ c.start_date|date:"y-m-d" }}</td><td>{{ c.end_date|date:"y-m-d" }}</td></tr>
                             {% endfor %}
-                            </tbody>
-                        </table>
-                    {% endif %}
+                        {% else %}
+                            <tr><td colspan="3">이번달은 일정이 없어요!</td> </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="col-12 mt-70 text-center">

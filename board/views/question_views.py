@@ -7,23 +7,6 @@ from common.models import College
 from board.forms import QuestionForm
 from django.contrib import messages
 
-@login_required(login_url='common:login')
-def question_create(request):
-    if request.method == 'POST':
-        img = request.FILES.get('imgs')
-        form = QuestionForm(request.POST)
-        if form.is_valid():
-            question = form.save(commit=False)
-            question.author = request.user
-            question.imgs = img
-            board = BoardType.objects.get(target='college')
-            question.board_type = board
-            question.save()
-            return redirect('board:index')
-    else:
-        form = QuestionForm()
-    context = {'form': form}
-    return render(request, 'board/question_form.html', context)
 
 @login_required(login_url='common:login')
 def question_college_list(request):
@@ -57,6 +40,24 @@ def question_college_list(request):
 
 
 @login_required(login_url='common:login')
+def question_create(request):
+    if request.method == 'POST':
+        img = request.FILES.get('imgs')
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.author = request.user
+            question.imgs = img
+            board = BoardType.objects.get(target='college')
+            question.board_type = board
+            question.save()
+            return redirect('board:index')
+    else:
+        form = QuestionForm()
+    context = {'form': form}
+    return render(request, 'board/question_form.html', context)
+
+@login_required(login_url='common:login')
 def question_modify(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     if request.user != question.author:
@@ -66,7 +67,8 @@ def question_modify(request, question_id):
         form = QuestionForm(request.POST, instance=question)
         if form.is_valid():
             img = request.FILES.get('imgs')
-            question.imgs = img
+            if img:
+                question.imgs = img
             question = form.save(commit=False)
             question.save()
             return redirect('board:detail', question_id=question.id)
