@@ -38,12 +38,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # humanize(천단위 출력)
+    'django.contrib.humanize',
+    
+    # crispy forms
+    'crispy_forms',
+
+    # 앱 목록
     'board.apps.BoardConfig',
     'common.apps.CommonConfig',
     'free.apps.FreeConfig',
     'mypage.apps.MypageConfig',
     'club.apps.ClubConfig',
+    'trade.apps.TradeConfig',
+    'contest.apps.ContestConfig',
 
+    # 소셜 로그인 관련
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -160,3 +170,6 @@ LOGIN_REDIRECT_URL = '/'
 
 # 로그인 성공 후 이동 페이지 설정
 LOGOUT_REDIRECT_URL = '/'
+
+# 크리스피 폼
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

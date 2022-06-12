@@ -29,5 +29,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('mypage/', include('mypage.urls')),
     path('club/', include('club.urls')),
+    path('trade/', include('trade.urls')),
+    path('contest/', include('contest.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

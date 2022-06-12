@@ -7,6 +7,7 @@ from club.forms import ClubQuestionForm
 from common.models import College
 from django.contrib import messages
 
+
 @login_required(login_url='common:login')
 def question_create(request):
     if request.method == 'POST':
@@ -24,6 +25,7 @@ def question_create(request):
         form = ClubQuestionForm()
     context = {'form': form}
     return render(request, 'club/club_form.html', context)
+
 
 @login_required(login_url='common:login')
 def question_college_list(request):
@@ -68,6 +70,7 @@ def question_modify(request, question_id):
     context = {'form': form}
     return render(request, 'club/club_form.html', context)
 
+
 @login_required(login_url='common:login')
 def question_delete(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
@@ -76,7 +79,6 @@ def question_delete(request, question_id):
         return redirect('club:detail', question_id=question.id)
     question.delete()
     return redirect('club:index')
-
 
 
 @login_required(login_url='common:login')

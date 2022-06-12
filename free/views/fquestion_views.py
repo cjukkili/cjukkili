@@ -57,7 +57,9 @@ def question_free_list(request):
                 Q(content__icontains=kw)
             ).distinct()
 
+    # 게시글 총 개수
     question_num = question_list.count()
+
     # 페이징 처리
     paginator = Paginator(question_list, 10)  # 한 페이지당 10개씩 보여주기
     page_obj = paginator.get_page(page)

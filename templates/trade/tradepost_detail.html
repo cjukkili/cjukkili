@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'question_detail.css' %}">
+    <div class="card article_card mb-4">
+        {% if messages %}
+            <div class="alert alert-danger my-3" role="alert">
+                {% for message in messages %}
+                    <strong>{{message.tgs}}</strong>
+                    <ul><li>{{message.message}}</li></ul>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="card-header article_header">
+            {# 게시글 제목 #}
+            <div class="article_title">
+                <div style="margin-bottom: 7px;">
+                    <a class="college_link" href="/trade/">중고 장터 ></a>
+                </div>
+                <h3>{{ tradepost.title }}</h3>
+            </div>
+            <div class="question_info d-flex flex-row">
+                <div class="profile_img d-flex align-items-center">
+                    <img src="{{ tradepost.author.profile_img.url }}" width="36px" height="36px">
+                </div>
+                <div class="profile_info col">
+                    <div class="mx-1 mb-0 question_author">{{ tradepost.author }}</div>
+                    <div class="d-flex article_info">
+                        <p class="mx-1 my-0">{{ tradepost.create_date|date:'Y.m.d H:i' }}</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mx-2"><i class="fa-solid fa-comment-dots"> 댓글 {{ tradepost.tradecomment_set.count }}</i></div>
+            </div>
+        </div>
+
+        {#본문 영역#}
+        <div class="card-body">
+            <div class="d-flex flex-column">
+                {# 상품 정보 #}
+                <div class="d-flex flex-row">
+                    <img src="{{ tradepost.image.url }}" width="380px" height="380px">
+                    <div>
+                        <div class="d-flex flex-column ms-5">
+                            <div class="h3"><span style="color: red">[판매]</span> {{ tradepost.title }}</div>
+                            <div class="h3">{{ tradepost.price|intcomma }}원</div>
+                            <hr/>
+                            <table>
+                                <tbody>
+                                <tr><th>상품 상태</th><td>{{ tradepost.product_status }}</td></tr>
+                                <tr><th>결제 방법</th><td>{{ tradepost.payment }}</td></tr>
+                                <tr><th>배송 방법</th><td>{{ tradepost.shipping }}</td></tr>
+                                </tbody>
+                            </table>
+                            <hr/>
+                            <div>판매자 {{ tradepost.author }}</div>
+                            <br/>
+                            <div class="small">
+                                계좌이체 시 선입금을 유도할 경우 안전한 거래인지 다시 한번 확인하세요.
+                                불확실한 판매자(사기의심 계좌번호, 사기의심 전화번호)의 물건은 구매하지 말아주세요.
+                            </div>
+                            <br/>
+                            <div class="small">
+                                청주끼리에 등록된 판매 물품과 내용은 개별 판매자가 등록한 것으로서, 청주끼리는
+                                등록을 위한 시스템만 제공하며 내용에 대하여 일체의 책임을 지지 않습니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {# 내용 #}
+                <div class="mt-3">
+                    {{ tradepost.content|linebreaks }}
+                </div>
+            </div>
+        </div>
+
+        {# 댓글 정보 및 글 수정/삭제 버튼 #}
+        <div class="d-flex justify-content-between">
+            <div class="heart_box pb-2">
+                {#                                <a class="text-decoration-none recommend" style="color: black" href="javascript:void(0)" data-uri="{% url 'board:question_like' question.id  %}"><i class="fa-solid fa-heart" style="color: red"></i> 좋아요 {{question.like.count}}</a>#}
+                <i class="fa-solid fa-comment-dots ms-1"> 댓글 {{ tradepost.tradecomment_set.count }}</i>
+            </div>
+            <div>
+                {% if request.user == tradepost.author %}
+                    <a href="{% url 'trade:update_post' tradepost.id %}" class="btn btn-sm btn-outline-secondary">수정</a>
+                    <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+                       data-uri="{% url 'trade:delete_post' tradepost.id %}">삭제</a>
+                {% endif %}
+            </div>
+        </div>
+
+        {#댓글 영역#}
+        <div class="card-footer comment_box">
+            <h5 class="fw-bold">댓글</h5>
+            <div>
+                {% for comment in tradepost.tradecomment_set.all  %}
+                    <div class="d-flex flex-column">
+                        <div>
+                            <div class="d-flex flex-column">
+                                <div class="user_comment d-flex flex-row align-items-center">
+                                    <img class="mb-auto mt-1" src="{{ comment.author.profile_img.url }}" style="height: 36px; width: 36px;">
+                                    <div class="comment_content">
+                                        <div class="d-flex flex-row" style="font-weight: bold">
+                                            {{ comment.author }}
+                                            {% if comment.author == tradepost.author %}
+                                                <div class="border-1 rounded-pill text-center ms-1 px-1 d-flex align-items-center" style="background-color: #dfc2c4; font-size: 8px; font-weight: bold">작성자</div>
+                                            {% endif %}
+                                        </div>
+                                        <div>{{ comment.content|linebreaks }}</div>
+                                    </div>
+                                </div>
+                                <div class="comment_cdate" style="padding-left: 36px;">{{ comment.create_date|date:'Y.m.d H:i' }}</div>
+                            </div>
+
+                            {% if comment.author == request.user %}
+                                <div class="d-flex flex-row float-end">
+                                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'trade:update_comment' comment.id %}">수정</a>
+                                    <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+                                       data-uri="{% url 'trade:delete_comment' comment.id %}">삭제</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+            <div class="card p-2 comment_input_box" style="margin: 0">
+                <form action="{{ tradepost.get_absolute_url }}new_comment/" method="post">
+                    {% csrf_token %}
+                    <div class="comment_input_info">
+                        <div class="comment_input_username">{{ request.user }}</div>
+                        <textarea name="content" id="content" class="comment_input_text" rows="1" placeholder="댓글을 남겨보세요." onkeyup="xSize(this)"></textarea>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary">등록</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        function xSize(e)
+        {
+            e.style.height = '1px';
+            e.style.height = (e.scrollHeight + 12) + 'px';
+        }
+        const recommend_elements = document.getElementsByClassName("recommend");
+        Array.from(recommend_elements).forEach(function(element) {
+            element.addEventListener('click', function () {
+                if (confirm("정말로 추천하시겠습니까?")) {
+                    location.href = this.dataset.uri;
+                }
+                ;
+            });
+        });
+
+        const delete_elements = document.getElementsByClassName("delete");
+        Array.from(delete_elements).forEach(function(element) {
+            element.addEventListener('click', function() {
+                if(confirm("정말로 삭제하시겠습니까?")) {
+                    location.href = this.dataset.uri;
+                };
+            });
+        });
+    </script>
+{% endblock %}

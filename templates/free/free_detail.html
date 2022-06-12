@@ -17,7 +17,7 @@
                 <div class="profile_info col">
                     <div class="mx-1 mb-0 question_author">{{ question.author }}</div>
                     <div class="d-flex article_info">
-                        <p class="mx-1 my-0">{{ question.create_date|date:'Y.m.d H:m' }}</p>
+                        <p class="mx-1 my-0">{{ question.create_date|date:'Y.m.d H:i' }}</p>
                         <p class="mx-1 my-0">조회수 {{ question.views }}</p>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                             </div>
 
                         </div>
-                        <div class="comment_cdate" style="padding-left: 36px;">{{ comment.create_date|date:'Y.m.d H:m' }}</div>
+                        <div class="comment_cdate" style="padding-left: 36px;">{{ comment.create_date|date:'Y.m.d H:i' }}</div>
                     </div>
                     <hr>
                 {% endfor %}
