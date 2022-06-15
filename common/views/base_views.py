@@ -16,8 +16,8 @@ def index(request):
     end_date = datetime.date(today.year, today.month,1) + relativedelta(months=1) + relativedelta(days=-1)  # 이번달 마지막날
     cal = Calendar.objects.filter(start_date__range=[start_date, end_date])  # 종강일 D-Day
 
-    trade_list = TradePost.objects.order_by('-create_date')[:5]
-    contest_list = Contest.objects.order_by('registration_start_date')[:5]
+    trade_list = TradePost.objects.order_by('-create_date')[:4]
+    contest_list = Contest.objects.order_by('registration_start_date')[:4]
 
     context = {'target_date': target_date, 'today': today, 'cal': cal, 'trade_list': trade_list,
                'contest_list': contest_list, }
