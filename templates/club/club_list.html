@@ -57,7 +57,11 @@
                                 {% endif %}
                             </a>
                         </td>
-                        <td>{{ question.author.nickname }}</td>
+                        {% if question.author.nickname %}
+                            <td>{{ question.author.nickname }}</td>
+                        {% else %}
+                            <td>{{ question.author }}</td>
+                        {% endif %}
                         <td>{{ question.create_date|date:"Y-m-d" }}</td>
                         <td>{{ question.like.count }}</td>
                         <td>{{ question.views }}</td>

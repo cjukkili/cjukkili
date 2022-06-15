@@ -70,7 +70,11 @@
                                     {% endif %}
                                 </a>
                             </td>
-                            <td>{{ question.author.nickname }}</td>
+                            {% if question.author.nickname %}
+                                <td>{{ question.author.nickname }}</td>
+                            {% else %}
+                                <td>{{ question.author }}</td>
+                            {% endif %}
                             <td>{{ question.create_date|date:"Y-m-d" }}</td>
                             <td>{{ question.like.count }}</td>
                             <td>{{ question.views }}</td>
@@ -83,12 +87,12 @@
                 {% endif %}
                 </tbody>
             </table>
-    
+
             {#게시글 버튼#}
             {% if user.is_authenticated %}
                 <a href="{% url 'free:question_create' %}" class="btn btn-primary">게시글 작성</a>
             {% endif %}
-    
+
             <!-- 페이징처리 시작 -->
             <ul class="pagination justify-content-center">
                 <!-- 이전페이지 -->
@@ -127,7 +131,7 @@
                 {% endif %}
             </ul>
             <!-- 페이징처리 끝 -->
-    
+
         </div>
         <form id="searchForm" method="get" action="{% url 'free:index' %}">
             <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
@@ -136,7 +140,7 @@
             <input type="hidden" class="searchType" id="searchType" name="searchType" value="{{ searchType|default_if_none:'1' }}">
         </form>
     </div>
-    
+
 
 {% endblock %}
 {% block script %}

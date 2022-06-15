@@ -61,15 +61,19 @@
                         </td>
                         <td class="text-start">
                             <a class="question_title" href="{% url 'board:detail' question.id %}" >{{ question.title|truncatechars:40 }}
-                            {% if question.imgs %}
-                                <i class="fa-solid fa-image"></i>
-                            {% endif %}
+                                {% if question.imgs %}
+                                    <i class="fa-solid fa-image"></i>
+                                {% endif %}
                                 {% if question.comment_set.count > 0 %}
                                     <span class="text-danger small mx-2">[{{ question.comment_set.count }}]</span>
                                 {% endif %}
                             </a>
                         </td>
-                        <td>{{ question.author.nickname }}</td>
+                        {% if question.author.nickname %}
+                            <td>{{ question.author.nickname }}</td>
+                        {% else %}
+                            <td>{{ question.author }}</td>
+                        {% endif %}
                         <td>{{ question.create_date|date:"Y-m-d" }}</td>
                         <td>{{ question.like.count }}</td>
                         <td>{{ question.views }}</td>
