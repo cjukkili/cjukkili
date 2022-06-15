@@ -11,7 +11,7 @@
 }
 
 .container-fluid{width: 70%;}
-.mg-auto{margin: 0 auto !important;}
+.mg-auto{margin: 0 0 0 auto !important;}
 .mg-auto li{margin: 0 45px;}
 .nav-link{color: white !important; font-weight: bold;}
 

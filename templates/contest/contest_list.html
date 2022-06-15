@@ -31,7 +31,7 @@
                     <td>{{ contest.registration_end_date|date:'Y.m.d' }}</td>
                     <td>{{ contest.contest_start_date|date:'Y.m.d' }}</td>
                     <td>{{ contest.contest_end_date|date:'Y.m.d' }}</td>
-                    <td><a href="{{ contest.site_url }}">링크</a></td>
+                    <td><a href="{{ contest.site_url }}" style="color: blue">링크</a></td>
                 </tr>
             {% endfor %}
         {% else %}

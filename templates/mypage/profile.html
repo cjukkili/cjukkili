@@ -1,19 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load page_filter %}
 {% block content %}
+    <style>
+        {# 하단바 고정 풀기 #}
+        .custom-footer{
+            position: inherit !important;
+        }
+        {# 하단 영역 삭제 #}
+        .contents-wrap{
+            padding-bottom: 0px !important;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'question_list.css' %}">
     <div class="container">
         <div class="col-12 mypage-title">
             <h1>마이페이지</h1>
         </div>
         <div class="col-12 d-flex flex-row w-100 custom-border pb-30">
             <div class="border-1">
-                <img style="border: solid 1px lightgray" src="{{ request.user.profile_img.url }}" width="200px;" height="200px;">
+                <img style="border: solid 1px lightgray" src="{{ request.user.profile_img.url }}" width="200px;" height="300px">
             </div>
             <div class="w-100 text-center">
                 <table class="table table-bordered" style="height: 100%; width: 100%;">
-                    <tr class="w-100"><th colspan="2" class="align-middle">이름</th> <td colspan="2" class="align-middle">{{ request.user.last_name }}{{ request.user.first_name }}</td></tr>
+                    <tr class="w-100"><th colspan="2" class="align-middle" style="width: 50%">이름</th> <td colspan="2" class="align-middle" style="width: 50%">{{ request.user.last_name }}{{ request.user.first_name }}</td></tr>
                     <tr><th colspan="2" class="align-middle">닉네임</th> <td colspan="2" class="align-middle">{{ request.user.nickname}}</td></tr>
-                    <tr><th colspan="2" class="align-middle">이메일</th> <td colspan="2" class="align-middle">{{ request.user.email}}</td></tr>
+                    <tr><th class="align-middle">이메일</th> <td class="align-middle">{{ request.user.email}}</td> <th>가입일</th><td>{{ request.user.date_joined|date:"Y-m-d" }}</td></tr>
                     <tr><th class="align-middle">단과대학</th> <td class="align-middle">{{ request.user.college }}</td><th>성별</th><td>{{ request.user.gender }}</td></tr>
                 </table>
             </div>
@@ -38,7 +50,7 @@
                 {% if question_list %}
                     {% for question in question_list %}
                         <tr>
-                            <td class="">{{ forloop.counter }}</td>
+                            <td class="">{{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}</td>
                             <td>
                                 {% if question.board_type.target == 'club' %}
                                     동아리
@@ -66,11 +78,50 @@
                     {% endfor %}
                 {% else %}
                     <tr>
-                        <td colspan="7">아직 게시글이 없습니다.</td>
+                        <td colspan="7">아직 작성한 게시글이 없습니다.</td>
                     </tr>
                 {% endif %}
                 </tbody>
             </table>
+
+            <!-- 페이징처리 시작 -->
+            <ul class="pagination justify-content-center">
+                <!-- 이전페이지 -->
+                {% if question_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link qpage page_before" data-page="{{ question_list.previous_page_number }}" href="#">&nbsp;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link qpage page_before_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp</a>
+                    </li>
+                {% endif %}
+                <!-- 페이지리스트 -->
+                {% for page_number in question_list.paginator.page_range %}
+                    {% if page_number >= question_list.number|add:-5 and page_number <= question_list.number|add:5 %}
+                        {% if page_number == question_list.number %}
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link qpage" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link qpage" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <!-- 다음페이지 -->
+                {% if question_list.has_next %}
+                    <li class="page-item">
+                        <a class="page-link qpage page_next" data-page="{{ question_list.next_page_number }}" href="#" style="">&nbsp;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link qpage page_next_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp;</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <!-- 페이징처리 끝 -->
         </div>
 
 
@@ -85,13 +136,12 @@
                 <th style="width: 60%;">제목</th>
                 <th>작성자</th>
                 <th>작성일</th>
-                <th>좋아요</th>
             </tr>
             <tbody>
             {% if comment_list %}
                 {% for comment in comment_list %}
                     <tr>
-                        <td class="">{{ forloop.counter }}</td>
+                        <td class="">{{ comment_list.paginator.count|sub:comment_list.start_index|sub:forloop.counter0|add:1 }}</td>
                         <td>
                             {% if comment.question.board_type %}
                                 {{ comment.question.board_type }}
@@ -105,15 +155,75 @@
                         </td>
                         <td>{{ comment.author.nickname }}</td>
                         <td>{{ comment.create_date|date:"Y-m-d" }}</td>
-                        <td>{{ comment.like.count }}</td>
                     </tr>
                 {% endfor %}
             {% else %}
                 <tr>
-                    <td colspan="6">아직 댓글이 없습니다.</td>
+                    <td colspan="5">아직 작성한 댓글이 없습니다.</td>
                 </tr>
             {% endif %}
             </tbody>
         </table>
+
+        <!-- 페이징처리 시작 -->
+        <ul class="pagination justify-content-center">
+            <!-- 이전페이지 -->
+            {% if comment_list.has_previous %}
+                <li class="page-item">
+                    <a class="page-link cpage page_before" data-page="{{ comment_list.previous_page_number }}" href="#">&nbsp;</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link cpage page_before_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp</a>
+                </li>
+            {% endif %}
+            <!-- 페이지리스트 -->
+            {% for page_number in comment_list.paginator.page_range %}
+                {% if page_number >= comment_list.number|add:-5 and page_number <= comment_list.number|add:5 %}
+                    {% if page_number == comment_list.number %}
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link cpage" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link cpage" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            <!-- 다음페이지 -->
+            {% if comment_list.has_next %}
+                <li class="page-item">
+                    <a class="page-link cpage page_next" data-page="{{ comment_list.next_page_number }}" href="#" style="">&nbsp;</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link cpage page_next_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp;</a>
+                </li>
+            {% endif %}
+        </ul>
+        <!-- 페이징처리 끝 -->
     </div>
+
+    <form id="pageForm" method="GET" action="{% url 'mypage:index' %}">
+        <input type="hidden" id="qpage" name="qpage" value="{{ qpage }}">
+        <input type="hidden" id="cpage" name="cpage" value="{{ cpage }}">
+    </form>
+{% endblock %}
+{% block script %}
+    <script type='text/javascript'>
+        $(document).ready(function(){
+            $(".qpage").on('click', function() {
+                $("#qpage").val($(this).data("page"));
+                $("#pageForm").submit();
+            });
+        });
+        $(document).ready(function(){
+            $(".cpage").on('click', function() {
+                $('#qpage').
+                $("#cpage").val($(this).data("page"));
+                $("#pageForm").submit();
+            });
+        });
+    </script>
 {% endblock %}

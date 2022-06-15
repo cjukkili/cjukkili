@@ -13,20 +13,20 @@
             <div class="d-flex flex-row justify-content-between">
                 <div class="input-group">
                     <div class="my-auto">총 {{ question_num }}건</div>
-                    <select class="my-3 ms-2 category_name" name="category_name">
+                    <select class="my-3 ms-2 categoryname">
                         <option value="">전체</option>
                         {% for category in category_list %}
-                            <option value="{{ category.category_name }}" {% if category_name == category.category_name %}selected{% endif %}>{{ category.category_name }}</option>
+                            <option value="{{ category.category_name }}" {% if category == cn %}selected{% endif %}>{{ category.category_name }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="row my-3">
                     <div class="">
                         <div class="input-group">
-                            <select class="me-2 searchType" name="searchType">
-                                <option value="1" selected>제목+내용</option>
-                                <option value="2">제목</option>
-                                <option value="3">내용</option>
+                            <select class="me-2 searchtype" name="searchtype" id="searchtype">
+                                <option value="1" {% if st == "1" %}selected{% endif %}>제목+내용</option>
+                                <option value="2" {% if st == "2" %}selected{% endif %}>제목</option>
+                                <option value="3" {% if st == "3" %}selected{% endif %}>내용</option>
                             </select>
                             <input type="text" id="search_kw" class="form-control" value="{{ kw|default_if_none:'' }}">
                             <div class="input-group-append">
@@ -61,7 +61,7 @@
                                 {% endif %}
                             </td>
                             <td class="text-start">
-                                <a class="question_title" href="{% url 'free:detail' question.id %}" >{{ question.title|truncatechars:40 }}
+                                <a class="question_title" href="{% url 'free:detail' question.id %}" >{{ question.title|truncatechars:45 }}
                                     {% if question.imgs %}
                                         <i class="fa-solid fa-image"></i>
                                     {% endif %}
@@ -90,7 +90,7 @@
 
             {#게시글 버튼#}
             {% if user.is_authenticated %}
-                <a href="{% url 'free:question_create' %}" class="btn btn-primary">게시글 작성</a>
+                <a href="{% url 'free:question_create' %}" class="btn btn-primary float-end">게시글 작성</a>
             {% endif %}
 
             <!-- 페이징처리 시작 -->
@@ -133,13 +133,13 @@
             <!-- 페이징처리 끝 -->
 
         </div>
-        <form id="searchForm" method="get" action="{% url 'free:index' %}">
-            <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
-            <input type="hidden" id="page" name="page" value="{{ page }}">
-            <input type="hidden" id="category_name" name="category_name" value="{{ category_name }}">
-            <input type="hidden" class="searchType" id="searchType" name="searchType" value="{{ searchType|default_if_none:'1' }}">
-        </form>
     </div>
+    <form id="searchForm" method="get" action="{% url 'free:index' %}">
+        <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+        <input type="hidden" id="page" name="page" value="{{ page }}">
+        <input type="hidden" id="cn" name="cn" value="{{ cn|default_if_none:'' }}">
+        <input type="hidden" id="st" name="st" value="{{ st }}">
+    </form>
 
 
 {% endblock %}
@@ -154,16 +154,15 @@
             const btn_search = document.getElementById("btn_search");
             btn_search.addEventListener('click', function() {
                 document.getElementById('kw').value = document.getElementById('search_kw').value;
+                document.getElementById("st").value = document.getElementById("searchtype").value;
                 document.getElementById('page').value = 1;  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
-                document.getElementById('searchForm').submit();
-            });
-            $(".category_name").on('change', function() {
-                $("#category_name").val($(this).val());
-                $("#page").val(1);
                 $("#searchForm").submit();
             });
-            $(".searchType").on('change', function() {
-                $(".searchType").val($(this).val());
+
+            $(".categoryname").on('change', function() {
+                $("#cn").val($(this).val());
+                $("#page").val(1);
+                $("#searchForm").submit();
             });
 
         });

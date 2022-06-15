@@ -31,22 +31,30 @@ def question_create(request):
 def question_college_list(request):
     page = request.GET.get('page', '1')  # 페이지
     kw = request.GET.get('kw', '')  # 검색어
+    st = request.GET.get('st', '')  # 검색 기준
     board = BoardType.objects.get(target='club')
 
     question_list = Question.objects.filter(board_type=board).order_by('-create_date')
 
     if kw:
-        question_list = question_list.filter(
-            Q(title__icontains=kw) |
-            Q(content__icontains=kw)
-        ).distinct()
+        if st == '2':
+            question_list = question_list.filter(
+                Q(title__icontains=kw)).distinct()
+        elif st == '3':
+            question_list = question_list.filter(
+                Q(content__icontains=kw)).distinct()
+        else:
+            question_list = question_list.filter(
+                Q(title__icontains=kw) |
+                Q(content__icontains=kw)
+            ).distinct()
     question_num = question_list.count()
     # 페이징 처리
     paginator = Paginator(question_list, 10)  # 한 페이지당 10개씩 보여주기
     page_obj = paginator.get_page(page)
     college_list = College.objects.order_by('department')
     context = {'question_list': page_obj, 'college_list': college_list, 'question_num': question_num,
-               'page': page, 'kw': kw}
+               'page': page, 'kw': kw, 'st':st}
     return render(request, 'club/club_list.html', context)
 
 

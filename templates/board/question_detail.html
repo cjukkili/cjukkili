@@ -3,10 +3,22 @@
 {% block board_content %}
     <link rel="stylesheet" type="text/css" href="{% static 'question_detail.css' %}">
     <div class="card article_card mb-4">
+        {% if messages %}
+            <div class="alert alert-danger my-3" role="alert">
+                {% for message in messages %}
+                    <strong>{{message.tgs}}</strong>
+                    <ul><li>{{message.message}}</li></ul>
+                {% endfor %}
+            </div>
+        {% endif %}
         <div class="card-header article_header">
             <div class="article_title">
                 <div style="margin-bottom: 7px;">
-                    <a class="college_link" href="/college/?category_name={{ question.college }}">{{ question.college }} ></a>
+                    {% if question.college %}
+                        <a class="college_link" href="/college/?category_name={{ question.college }}">{{ question.college }} ></a>
+                    {% else %}
+                        <a class="college_link" href="/college/">단과대학 ></a>
+                    {% endif %}
                 </div>
                 <h3>{{ question.title }}</h3>
             </div>

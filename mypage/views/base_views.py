@@ -10,15 +10,19 @@ def index(request):
     question_list = Question.objects.filter(
         Q(author_id=request.user.id)
     ).order_by('-create_date')
-    page = request.GET.get('page', '1')  # 페이지
+    qpage = request.GET.get('qpage', '1')  # 게시글 페이지
 
     comment_list = Comment.objects.filter(
         Q(author_id=request.user)
     ).order_by('-create_date')
+    cpage = request.GET.get('cpage', '1')  # 게시글 페이지
 
     # 페이징 처리
-    paginator = Paginator(question_list, 10)  # 한 페이지당 10개씩 보여주기
-    page_obj = paginator.get_page(page)
+    question_paginator = Paginator(question_list, 10)  # 게시글 한 페이지당 10개씩 보여주기
+    question_obj = question_paginator.get_page(qpage)
 
-    context = {'question_list': page_obj, 'comment_list':comment_list,'page': page}
+    comment_paginator = Paginator(comment_list, 10)  # 댓글 한 페이지당 10개씩 보여주기
+    comment_obj = comment_paginator.get_page(cpage)
+
+    context = {'question_list': question_obj, 'comment_list':comment_obj, 'qpage':qpage, 'cpage':cpage}
     return render(request, 'mypage/profile.html', context)

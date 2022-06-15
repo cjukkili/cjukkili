@@ -30,9 +30,9 @@ def question_create(request):
 def question_free_list(request):
     page = request.GET.get('page', '1')  # 페이지
     kw = request.GET.get('kw', '')  # 검색어
-    category_name = request.GET.get('category_name', '')  # 정렬 기준
+    category_name = request.GET.get('cn', '')  # 정렬 기준
     board = BoardType.objects.get(target='free')
-    st = request.GET.get('searchType', '')  # 검색 기준
+    st = request.GET.get('st', '')  # 검색 기준
     if category_name:
         category_name = Category.objects.get(category_name=category_name)  # 정렬 기준
         q = Q()
@@ -51,7 +51,6 @@ def question_free_list(request):
             question_list = question_list.filter(
                 Q(content__icontains=kw)).distinct()
         else:
-
             question_list = question_list.filter(
                 Q(title__icontains=kw) |
                 Q(content__icontains=kw)
@@ -65,7 +64,7 @@ def question_free_list(request):
     page_obj = paginator.get_page(page)
     category_list = Category.objects.order_by('category_name')
     context = {'question_list': page_obj, 'category_list': category_list, 'question_num': question_num,
-               'page': page, 'kw': kw, 'searchType': st, 'category_name': category_name}
+               'page': page, 'kw': kw, 'st': st, 'cn': category_name}
     return render(request, 'free/free_list.html', context)
 
 
