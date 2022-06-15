@@ -1,13 +1,13 @@
 from django.urls import path
 
-from board.views import base_views, question_views, answer_views
+from board.views import base_views, question_views, comment_views
 
 app_name = 'board'
 
 urlpatterns = [
     ## base_board
     path('<int:question_id>/', base_views.detail, name='detail'),
-    path('create_comment/<int:question_id>/', answer_views.comment_create, name='comment_create'),
+    path('create_comment/<int:question_id>/', comment_views.comment_create, name='comment_create'),
 
     ## question_views
     path('', question_views.question_college_list, name='index'),

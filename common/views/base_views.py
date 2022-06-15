@@ -1,9 +1,8 @@
 from dateutil.relativedelta import relativedelta
 from django.shortcuts import render
 
-from common.models import College, Calendar
+from common.models import Calendar
 from contest.models import Contest
-from board.models import Question, BoardType
 from trade.models import TradePost
 
 
