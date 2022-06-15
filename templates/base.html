@@ -96,55 +96,116 @@
                 </div>
                 <div class="col-12 row">
                     <div class="col-9 row mg-auto">
+                        {# 단과대학 게시판 영역 #}
                         <div class="col-4">
                             <div class="card-hover">
                                 <a>
                                     <div class="col-12">
-                                        <div class="card1"></div>
+                                        <div class="card1">
+                                            <table class="table table-sm text-center">
+                                                <thead>
+                                                <tr><td>단과대학</td><td>제목</td></tr>
+                                                </thead>
+                                                <tbody>
+                                                {% if college_list %}
+                                                    {% for college in college_list %}
+                                                        <tr>
+                                                            {% if college.college %}
+                                                                <td>{{ college.college|truncatechars:5 }}</td>
+                                                            {% else %}
+                                                                <td>미분류</td>
+                                                            {% endif %}
+                                                            <td><a href="{% url 'board:detail' college.id %}">{{ college.title|truncatechars:10 }}</a></td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                {% endif %}
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="mtb-30">
-                                            <h4>comment section</h4>
+                                            <h4>단과대학 최신글</h4>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                         </div>
+                        {# 동아리 게시판 영역 #}
                         <div class="col-4">
                             <div class="card-hover">
                                 <a>
                                     <div class="col-12">
-                                        <div class="card2"></div>
+                                        <div class="card2">
+                                            <table class="table table-sm text-center">
+                                                <thead>
+                                                <tr><td>제목</td><td>작성일</td></tr>
+                                                </thead>
+                                                <tbody>
+                                                {% if club_list %}
+                                                    {% for club in club_list %}
+                                                        <tr>
+                                                            <td><a href="{% url 'club:detail' club.id %}">{{ club.title|truncatechars:10 }}</a></td>
+                                                            <td>{{ club.create_date|date:"y-m-d" }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                {% endif %}
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="mtb-30">
-                                            <h4>comment section</h4>
+                                            <h4>동아리 최신글</h4>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                         </div>
+                        {# 자유 게시판 영역 #}
                         <div class="col-4">
                             <div class="card-hover">
                                 <a>
                                     <div class="col-12">
-                                        <div class="card3"></div>
+                                        <div class="card3">
+                                            <table class="table table-sm text-center">
+                                                <thead>
+                                                <tr><td>카테고리</td><td>제목</td></tr>
+                                                </thead>
+                                                <tbody>
+                                                {% if free_list %}
+                                                    {% for free in free_list %}
+                                                        <tr>
+                                                            {% if free.category %}
+                                                                <td>{{ free.category }}</td>
+                                                            {% else %}
+                                                                <td>미분류</td>
+                                                            {% endif %}
+                                                            <td><a href="{% url 'free:detail' free.id %}">{{ free.title|truncatechars:10 }}</a></td>
+
+                                                        </tr>
+                                                    {% endfor %}
+                                                {% endif %}
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="mtb-30">
-                                            <h4>comment section</h4>
+                                            <h4>자유게시판 최신글</h4>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                         </div>
                     </div>
+                    {# 장터 소식 게시판 #}
                     <div class="col-3">
                         <div class="col-12">
-                        <div class="d-flex flex-row justify-content-between " style="border-bottom: 1px solid">
-                            <h3 style="text-align: start; ">장터 소식</h3>
-                            <a href="/trade/" class="my-auto">더보기</a>
-                        </div>
+                            <div class="d-flex flex-row justify-content-between " style="border-bottom: 1px solid">
+                                <h3 style="text-align: start; ">장터 소식</h3>
+                                <a href="/trade/" class="my-auto">더보기</a>
+                            </div>
                             <table class="table table-sm text-center">
                                 <thead>
                                 <tr><td>상품명</td><td>가격</td><td>등록일</td></tr>
@@ -162,11 +223,12 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-12">
+                        {# 대회 소식 게시판 #}
+                        <div class="col-12 mt-2">
                             <div class="d-flex flex-row justify-content-between " style="border-bottom: 1px solid">
-                            <h3 style="text-align: start; ">대회 소식</h3>
-                            <a href="/contest/" class="my-auto" ">더보기</a>
-                        </div>
+                                <h3 style="text-align: start; ">대회 소식</h3>
+                                <a href="/contest/" class="my-auto">더보기</a>
+                            </div>
                             <table class="table table-sm text-center">
                                 <thead>
                                 <tr><td>대회명</td><td>접수시작일</td><td>접수마감일</td></tr>
