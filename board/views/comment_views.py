@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseNotAllowed
 from django.shortcuts import render, get_object_or_404, redirect
-from django.core.paginator import Paginator
+from django.views.generic import UpdateView
 
 from board.forms import CommentForm
 from board.models import Question, Comment
-from common.models import College
 
 
 @login_required(login_url='common:login')
@@ -24,3 +25,28 @@ def comment_create(request, question_id):
         return HttpResponseNotAllowed('Only POST is possible.')
     context = {'question': question, 'form': form}
     return render(request, 'board/question_detail.html', context)
+
+
+class CommentUpdate(LoginRequiredMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'board/comment_modify.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user == self.get_object().author:
+            return super(CommentUpdate, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+
+
+@login_required(login_url='common:index')
+def comment_delete(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    question_id = comment.question.id
+    if request.user != comment.author:
+        from django.contrib import messages
+        messages.error(request, '삭제권한이 없습니다')
+        return redirect('board:detail', question_id=question_id)
+    comment.delete()
+    return redirect('board:detail', question_id=question_id)

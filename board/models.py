@@ -33,6 +33,9 @@ class Question(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return f'/{self.board_type.target}/{self.id}/'
+
 
 class Comment(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
@@ -43,3 +46,7 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+    def get_absolute_url(self):
+        return self.question.get_absolute_url()
+
