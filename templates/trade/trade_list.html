@@ -14,8 +14,9 @@
             {% for trade in trade_list %}
 
                 <div class="col-3 d-flex flex-column my-3">
+
                     <a href="{% url 'trade:detail' trade.id %}" class="fw-bold">
-                    <img src="{{ trade.image.url }}" height="300px" width="300px">
+                    <img src="{{ trade.image.url }}" height="300px" width="280px">
                     <h4>{{ trade.title }}</h4>
                     <div class="h4 m-0">&#8361;{{ trade.price|intcomma }}</div>
                     <div>{{ trade.author }}</div>
