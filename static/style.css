@@ -152,6 +152,7 @@ card option
     margin: 0 auto;
     border-bottom: 3px solid #2d4b7a;
 }
+.contest-section-title h2{font-weight: 700;}
 .contest{
     width: 100%;
     height: 400px;
@@ -204,3 +205,11 @@ mypage option
 .mypage-board h1, .mypage-comment h1{font-size: 1rem; font-weight: 700;}
 
 .custom-border{border-bottom: dashed; border-bottom-color: #acacac;}
+
+/******************
+trade option
+*******************/
+.fw-bold img{border: 2px solid #ececec;}
+.fw-bold h5{font-size: 1rem;}
+.fw-bold .h5{font-size: 1rem;}
+.fw-bold div{font-size: 0.9rem;}

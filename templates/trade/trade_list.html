@@ -6,71 +6,75 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'question_list.css' %}">
-    <div class="col-12 text-center board-title">
-        중고 장터
-    </div>
-    <div class="row">
-        {% if trade_list %}
-            {% for trade in trade_list %}
-
-                <div class="col-3 d-flex flex-column my-3">
-
-                    <a href="{% url 'trade:detail' trade.id %}" class="fw-bold">
-                    <img src="{{ trade.image.url }}" height="300px" width="280px">
-                    <h4>{{ trade.title }}</h4>
-                    <div class="h4 m-0">&#8361;{{ trade.price|intcomma }}</div>
-                    <div>{{ trade.author }}</div>
-                    <div>{{ trade.create_date|date:'Y-m-d' }}</div>
-                    </a>
-                </div>
-
-            {% endfor %}
-        {% endif %}
-    </div>
-
-
-    <div class="mt-3">
-        <a class="btn btn-primary float-end" href="{% url 'trade:create_post' %}">상품 등록</a>
-    </div>
-    <!-- 페이징 시작 -->
-    <ul class="pagination justify-content-center">
-        <!-- 이전페이지 -->
-        {% if trade_list.has_previous %}
-            <li class="page-item">
-                <a class="page-link page_before" data-page="{{ trade_list.previous_page_number }}" href="#">&nbsp;</a>
-            </li>
-        {% else %}
-            <li class="page-item disabled">
-                <a class="page-link page_before_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp</a>
-            </li>
-        {% endif %}
-        <!-- 페이지리스트 -->
-        {% for page_number in trade_list.paginator.page_range %}
-            {% if page_number >= trade_list.number|add:-5 and page_number <= trade_list.number|add:5 %}
-                {% if page_number == trade_list.number %}
-                    <li class="page-item active" aria-current="page">
-                        <a class="page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+    <div class="container mt-3" style="max-width: 1200px !important;">
+        <div class="col-12 pt-2">
+            <div class="col-12 text-center board-title">
+                중고 장터
+            </div>
+            <div class="row">
+                {% if trade_list %}
+                    {% for trade in trade_list %}
+        
+                        <div class="col-3 d-flex flex-column my-3">
+        
+                            <a href="{% url 'trade:detail' trade.id %}" class="fw-bold">
+                            <img src="{{ trade.image.url }}" height="300px" width="280px">
+                            <h5 style="margin-top: 0.5rem;">{{ trade.title }}</h5>
+                            <div class="h5 m-0">&#8361;{{ trade.price|intcomma }}</div>
+                            <div>{{ trade.author }}</div>
+                            <div>{{ trade.create_date|date:'Y-m-d' }}</div>
+                            </a>
+                        </div>
+        
+                    {% endfor %}
+                {% endif %}
+            </div>
+        
+        
+            <div class="mt-3">
+                <a class="btn btn-primary float-end" href="{% url 'trade:create_post' %}">상품 등록</a>
+            </div>
+            <!-- 페이징 시작 -->
+            <ul class="pagination justify-content-center">
+                <!-- 이전페이지 -->
+                {% if trade_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link page_before" data-page="{{ trade_list.previous_page_number }}" href="#">&nbsp;</a>
                     </li>
                 {% else %}
-                    <li class="page-item">
-                        <a class="page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                    <li class="page-item disabled">
+                        <a class="page-link page_before_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp</a>
                     </li>
                 {% endif %}
-            {% endif %}
-        {% endfor %}
-        <!-- 다음페이지 -->
-        {% if trade_list.has_next %}
-            <li class="page-item">
-                <a class="page-link page_next" data-page="{{ trade_list.next_page_number }}" href="#" style="">&nbsp;</a>
-            </li>
-        {% else %}
-            <li class="page-item disabled">
-                <a class="page-link page_next_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp;</a>
-            </li>
-        {% endif %}
-    </ul>
-    <!-- 페이징처리 끝 -->
-
+                <!-- 페이지리스트 -->
+                {% for page_number in trade_list.paginator.page_range %}
+                    {% if page_number >= trade_list.number|add:-5 and page_number <= trade_list.number|add:5 %}
+                        {% if page_number == trade_list.number %}
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <!-- 다음페이지 -->
+                {% if trade_list.has_next %}
+                    <li class="page-item">
+                        <a class="page-link page_next" data-page="{{ trade_list.next_page_number }}" href="#" style="">&nbsp;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link page_next_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp;</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <!-- 페이징처리 끝 -->
+        
+        </div>
+    </div>
     <form id="searchForm" method="post" action="{% url 'trade:index' %}">
         {% csrf_token %}
         <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
