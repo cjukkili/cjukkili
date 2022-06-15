@@ -12,13 +12,17 @@
     <div class="row">
         {% if trade_list %}
             {% for trade in trade_list %}
+
                 <div class="col-3 d-flex flex-column my-3">
+                    <a href="{% url 'trade:detail' trade.id %}" class="fw-bold">
                     <img src="{{ trade.image.url }}" height="300px" width="300px">
-                    <a href="{% url 'trade:detail' trade.id %}" class="fw-bold">{{ trade.title }}</a>
+                    <h4>{{ trade.title }}</h4>
                     <div class="h4 m-0">&#8361;{{ trade.price|intcomma }}</div>
                     <div>{{ trade.author }}</div>
                     <div>{{ trade.create_date|date:'Y-m-d' }}</div>
+                    </a>
                 </div>
+
             {% endfor %}
         {% endif %}
     </div>
