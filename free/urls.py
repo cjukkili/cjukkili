@@ -9,6 +9,8 @@ urlpatterns = [
 
 
     path('create_comment/<int:question_id>/', comment_views.comment_create, name='comment_create'),
+    path('update_comment/<int:pk>/', comment_views.CommentUpdate.as_view(), name='comment_update'),
+    path('delete_comment/<int:comment_id>/', comment_views.comment_delete, name='comment_delete'),
 
     # fquestion_view
     path('', fquestion_views.question_free_list, name='index'),

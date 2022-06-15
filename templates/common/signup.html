@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
     <div class="container my-3">
-        <form method="post" action="{% url 'common:signup' %}">
+        <form method="post" action="{% url 'common:signup' %}" enctype="multipart/form-data" >
             {% csrf_token %}
             {% include "form_errors.html" %}
-            {{ form.as_p }}
+            {{ form }}
             <button type="submit" class="btn btn-primary">생성하기</button>
         </form>
     </div>

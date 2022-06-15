@@ -13,20 +13,14 @@ from trade.models import TradePost, TradeComment
 @login_required(login_url='common:login')
 def index(request):
         page = request.POST.get('page', '1')  # 페이지
-        kw = request.POST.get('kw', '')  # 검색어
         trade_list = TradePost.objects.order_by('-create_date')
-        if kw:
-            trade_list = trade_list.filter(
-                Q(title__icontains=kw) |
-                Q(content__icontains=kw)
-            ).distinct()
         # 게시글 개수
         num_post = trade_list.count()
 
         # 페이징 처리
         paginator = Paginator(trade_list, 8)  # 한 페이지당 8개씩 보여주기
         page_obj = paginator.get_page(page) # 페이지에 있는 게시글 정보
-        context = {'trade_list': page_obj, 'num_post': num_post, 'kw': kw,}
+        context = {'trade_list': page_obj, 'num_post': num_post,}
         return render(request, 'trade/trade_list.html', context)
 
 
