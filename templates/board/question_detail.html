@@ -42,7 +42,7 @@
             <div>
                 {% if question.imgs %}
                     <div class="text-center">
-                        <img src="{{ question.imgs.url }}">
+                        <img src="{{ question.imgs.url }}" style="max-width: 100%">
                     </div>
                 {% endif %}
                 {{ question.content|linebreaks }}

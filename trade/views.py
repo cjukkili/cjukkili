@@ -71,7 +71,8 @@ def PostDelete(request, pk):
     post.delete()
     return redirect('trade:index')
 
-class PostDetail(DetailView):
+
+class PostDetail(LoginRequiredMixin, DetailView):
     model = TradePost
 
     def get_context_data(self, **kwargs):

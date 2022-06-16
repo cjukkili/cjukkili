@@ -186,7 +186,7 @@
                                 {% if contest_list %}
                                     {% for contest in contest_list %}
                                         <tr>
-                                            <td><a href="{{ contest.site_url }}">{{ contest.name|truncatechars:10 }}</a></td>
+                                            <td><a href="{% url 'contest:detail' contest.id %}">{{ contest.name|truncatechars:10 }}</a></td>
                                             <td>{{ contest.registration_start_date|date:"y-m-d" }}</td>
                                             <td>{{ contest.registration_start_date|date:"y-m-d" }}</td>
                                         </tr>
