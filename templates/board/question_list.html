@@ -1,5 +1,6 @@
 {% extends "board/question_base.html" %}
 {% load static %}
+{% load page_filter %}
 {% block board_content %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,7 +56,7 @@
             {% if question_list %}
                 {% for question in question_list %}
                     <tr>
-                        <td class="">{{ forloop.counter }}</td>
+                        <td class="">{{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}</td>
                         <td>
                             {% if question.college %}
                                 {{ question.college }}

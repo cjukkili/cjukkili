@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'question_detail.css' %}">
+    <div class="card article_card mb-4">
+        {% if messages %}
+            <div class="alert alert-danger my-3" role="alert">
+                {% for message in messages %}
+                    <strong>{{message.tgs}}</strong>
+                    <ul><li>{{message.message}}</li></ul>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="card-header article_header">
+            {# 게시글 제목 #}
+            <div class="article_title">
+                <div style="margin-bottom: 7px;">
+                    <a class="college_link" href="/contest/">대회 ></a>
+                </div>
+                <div>
+                    <h3>{{ contest.name }}</h3>
+                </div>
+            </div>
+        </div>
+
+        {#본문 영역#}
+        <div class="card-body">
+            <div class="d-flex flex-column">
+                {# 대회 정보 #}
+                <table class="table">
+                    <tr><th style="width: 30%">대회명</th><td>{{ contest.name }}</td></tr>
+                    <tr><th>접수 시작일</th><td>{{ contest.registration_start_date|date:"Y-m-d" }}</td></tr>
+                    <tr><th>접수 마감일</th><td>{{ contest.registration_end_date|date:"Y-m-d" }}</td></tr>
+                    <tr><th>대회 시작일</th><td>{{ contest.contest_start_date|date:"Y-m-d" }}</td></tr>
+                    <tr><th>대회 마감일</th><td>{{ contest.contest_end_date|date:"Y-m-d" }}</td></tr>
+                    <tr><th>사이트 주소</th><td>{{ contest.site_url }}</td></tr>
+                </table>
+                {# 본문 #}
+                <div class="mt-3">
+                    {{ contest.content|linebreaks }}
+                </div>
+            </div>
+        </div>
+
+        {# 글 수정/삭제 버튼 #}
+        <div class="d-flex justify-content-between">
+            <div>
+                {% if request.user == contest.author %}
+                    <a href="{% url 'contest:update_contest' contest.id %}" class="btn btn-sm btn-outline-secondary">수정</a>
+                    <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+                       data-uri="{% url 'contest:delete_contest' contest.id %}">삭제</a>
+                {% endif %}
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        function xSize(e)
+        {
+            e.style.height = '1px';
+            e.style.height = (e.scrollHeight + 12) + 'px';
+        }
+        const recommend_elements = document.getElementsByClassName("recommend");
+        Array.from(recommend_elements).forEach(function(element) {
+            element.addEventListener('click', function () {
+                if (confirm("정말로 추천하시겠습니까?")) {
+                    location.href = this.dataset.uri;
+                }
+                ;
+            });
+        });
+
+        const delete_elements = document.getElementsByClassName("delete");
+        Array.from(delete_elements).forEach(function(element) {
+            element.addEventListener('click', function() {
+                if(confirm("정말로 삭제하시겠습니까?")) {
+                    location.href = this.dataset.uri;
+                };
+            });
+        });
+    </script>
+{% endblock %}

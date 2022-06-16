@@ -125,89 +125,249 @@
         </div>
 
 
-        <div class="col-12 mypage-comment">
+        <div class="col-12 mypage-comment ">
             <h1>내가 쓴 댓글</h1>
         </div>
-        <table class="table text-center">
-            <thead>
-            <tr class="border-top border-dark">
-                <th>번호</th>
-                <th>구분</th>
-                <th style="width: 60%;">제목</th>
-                <th>작성자</th>
-                <th>작성일</th>
-            </tr>
-            <tbody>
-            {% if comment_list %}
-                {% for comment in comment_list %}
-                    <tr>
-                        <td class="">{{ comment_list.paginator.count|sub:comment_list.start_index|sub:forloop.counter0|add:1 }}</td>
-                        <td>
-                            {% if comment.question.board_type %}
-                                {{ comment.question.board_type }}
-                            {% else %}
-                                미분류
-                            {% endif %}
-                        </td>
-                        <td class="text-start">
-                            <a class="question_title" href="{% url 'board:detail' comment.question.id %}" >{{ comment.content|truncatechars:40 }}
-                            </a>
-                        </td>
-                        <td>{{ comment.author.nickname }}</td>
-                        <td>{{ comment.create_date|date:"Y-m-d" }}</td>
-                    </tr>
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td colspan="5">아직 작성한 댓글이 없습니다.</td>
+        <div class="col-12 pb-30 custom-border">
+            <table class="table text-center">
+                <thead>
+                <tr class="border-top border-dark">
+                    <th>번호</th>
+                    <th>게시글</th>
+                    <th style="width: 40%;">내용</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
                 </tr>
-            {% endif %}
-            </tbody>
-        </table>
-
-        <!-- 페이징처리 시작 -->
-        <ul class="pagination justify-content-center">
-            <!-- 이전페이지 -->
-            {% if comment_list.has_previous %}
-                <li class="page-item">
-                    <a class="page-link cpage page_before" data-page="{{ comment_list.previous_page_number }}" href="#">&nbsp;</a>
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link cpage page_before_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp</a>
-                </li>
-            {% endif %}
-            <!-- 페이지리스트 -->
-            {% for page_number in comment_list.paginator.page_range %}
-                {% if page_number >= comment_list.number|add:-5 and page_number <= comment_list.number|add:5 %}
-                    {% if page_number == comment_list.number %}
-                        <li class="page-item active" aria-current="page">
-                            <a class="page-link cpage" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
-                        </li>
-                    {% else %}
-                        <li class="page-item">
-                            <a class="page-link cpage" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
-                        </li>
-                    {% endif %}
+                <tbody>
+                {% if comment_list %}
+                    {% for comment in comment_list %}
+                        <tr>
+                            <td class="">{{ comment_list.paginator.count|sub:comment_list.start_index|sub:forloop.counter0|add:1 }}</td>
+                            <td>
+                                <a href="{% url 'board:detail' comment.question.id %}">{{ comment.question.title|truncatechars:10 }}</a>
+                            </td>
+                            <td class="text-start">
+                                <a class="question_title" href="{% url 'board:detail' comment.question.id %}" >{{ comment.content|truncatechars:40 }}
+                                </a>
+                            </td>
+                            <td>{{ comment.author.nickname }}</td>
+                            <td>{{ comment.create_date|date:"Y-m-d" }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5">아직 작성한 댓글이 없습니다.</td>
+                    </tr>
                 {% endif %}
-            {% endfor %}
-            <!-- 다음페이지 -->
-            {% if comment_list.has_next %}
-                <li class="page-item">
-                    <a class="page-link cpage page_next" data-page="{{ comment_list.next_page_number }}" href="#" style="">&nbsp;</a>
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link cpage page_next_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp;</a>
-                </li>
-            {% endif %}
-        </ul>
-        <!-- 페이징처리 끝 -->
+                </tbody>
+            </table>
+
+            <!-- 페이징처리 시작 -->
+            <ul class="pagination justify-content-center">
+                <!-- 이전페이지 -->
+                {% if comment_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link cpage page_before" data-page="{{ comment_list.previous_page_number }}" href="#">&nbsp;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link cpage page_before_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp</a>
+                    </li>
+                {% endif %}
+                <!-- 페이지리스트 -->
+                {% for page_number in comment_list.paginator.page_range %}
+                    {% if page_number >= comment_list.number|add:-5 and page_number <= comment_list.number|add:5 %}
+                        {% if page_number == comment_list.number %}
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link cpage" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link cpage" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <!-- 다음페이지 -->
+                {% if comment_list.has_next %}
+                    <li class="page-item">
+                        <a class="page-link cpage page_next" data-page="{{ comment_list.next_page_number }}" href="#" style="">&nbsp;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link cpage page_next_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp;</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <!-- 페이징처리 끝 -->
+        </div>
+
+        <div class="col-12 mypage-board">
+            <h1>내가 쓴 판매글</h1>
+        </div>
+        <div class="col-12 pb-30 custom-border">
+            <table class="table text-center">
+                <thead>
+                <tr class="border-top border-dark">
+                    <th>번호</th>
+                    <th style="width: 60%;">제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if trade_list %}
+                    {% for trade in trade_list %}
+                        <tr>
+                            <td class="">{{ trade_list.paginator.count|sub:trade_list.start_index|sub:forloop.counter0|add:1 }}</td>
+                            <td class="text-start">
+                                <a class="question_title" href="{% url 'trade:detail' trade.id %}" >{{ trade.title|truncatechars:40 }}
+                                    {% if trade.comment_set.count > 0 %}
+                                        <span class="text-danger small mx-2">[{{ trade.comment_set.count }}]</span>
+                                    {% endif %}
+                                </a>
+                            </td>
+                            <td>{{ trade.author.nickname }}</td>
+                            <td>{{ trade.create_date|date:"Y-m-d" }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="7">아직 작성한 게시글이 없습니다.</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+
+            <!-- 페이징처리 시작 -->
+            <ul class="pagination justify-content-center">
+                <!-- 이전페이지 -->
+                {% if trade_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link tpage page_before" data-page="{{ trade_list.previous_page_number }}" href="#">&nbsp;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link tpage page_before_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp</a>
+                    </li>
+                {% endif %}
+                <!-- 페이지리스트 -->
+                {% for page_number in trade_list.paginator.page_range %}
+                    {% if page_number >= trade_list.number|add:-5 and page_number <= trade_list.number|add:5 %}
+                        {% if page_number == trade_list.number %}
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link tpage" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link tpage" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <!-- 다음페이지 -->
+                {% if trade_list.has_next %}
+                    <li class="page-item">
+                        <a class="page-link tpage page_next" data-page="{{ trade_list.next_page_number }}" href="#" style="">&nbsp;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link tpage page_next_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp;</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <!-- 페이징처리 끝 -->
+        </div>
+
+        <div class="col-12 mypage-board">
+            <h1>내가 쓴 대회글</h1>
+        </div>
+        <div class="col-12 pb-30 custom-border border-0">
+            <table class="table text-center">
+                <thead>
+                <tr class="border-top border-dark">
+                    <th>번호</th>
+                    <th style="width: 60%;">제목</th>
+                    <th>작성자</th>
+                    <th>대회 시작일</th>
+                    <th>대회 마감일</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if contest_list %}
+                    {% for contest in contest_list %}
+                        <tr>
+                            <td class="">{{ contest_list.paginator.count|sub:contest_list.start_index|sub:forloop.counter0|add:1 }}</td>
+                            <td class="text-start">
+                                <a class="question_title" href="{% url 'contest:detail' contest.id %}" >{{ contest.name|truncatechars:40 }}
+                                    {% if trade.comment_set.count > 0 %}
+                                        <span class="text-danger small mx-2">[{{ trade.comment_set.count }}]</span>
+                                    {% endif %}
+                                </a>
+                            </td>
+                            <td>{{ contest.author.nickname }}</td>
+                            <td>{{ contest.contest_start_date|date:"Y-m-d" }}</td>
+                            <td>{{ contest.contest_start_date|date:"Y-m-d" }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="7">아직 작성한 게시글이 없습니다.</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+
+            <!-- 페이징처리 시작 -->
+            <ul class="pagination justify-content-center">
+                <!-- 이전페이지 -->
+                {% if contest_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link ctpage page_before" data-page="{{ contest_list.previous_page_number }}" href="#">&nbsp;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link ctpage page_before_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp</a>
+                    </li>
+                {% endif %}
+                <!-- 페이지리스트 -->
+                {% for page_number in contest_list.paginator.page_range %}
+                    {% if page_number >= contest_list.number|add:-5 and page_number <= contest_list.number|add:5 %}
+                        {% if page_number == contest_list.number %}
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link ctpage" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link ctpage" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <!-- 다음페이지 -->
+                {% if contest_list.has_next %}
+                    <li class="page-item">
+                        <a class="page-link ctpage page_next" data-page="{{ contest_list.next_page_number }}" href="#" style="">&nbsp;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link ctpage page_next_disable" tabindex="-1" aria-disabled="true" href="#">&nbsp;</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <!-- 페이징처리 끝 -->
+        </div>
+
     </div>
+
+
+
 
     <form id="pageForm" method="GET" action="{% url 'mypage:index' %}">
         <input type="hidden" id="qpage" name="qpage" value="{{ qpage }}">
         <input type="hidden" id="cpage" name="cpage" value="{{ cpage }}">
+        <input type="hidden" id="ctpage" name="ctpage" value="{{ ctpage }}">
+        <input type="hidden" id="tpage" name="tpage" value="{{ tpage }}">
     </form>
 {% endblock %}
 {% block script %}
@@ -217,11 +377,16 @@
                 $("#qpage").val($(this).data("page"));
                 $("#pageForm").submit();
             });
-        });
-        $(document).ready(function(){
             $(".cpage").on('click', function() {
-                $('#qpage').
                 $("#cpage").val($(this).data("page"));
+                $("#pageForm").submit();
+            });
+            $(".ctpage").on('click', function() {
+                $("#ctpage").val($(this).data("page"));
+                $("#pageForm").submit();
+            });
+            $(".tpage").on('click', function() {
+                $("#tpage").val($(this).data("page"));
                 $("#pageForm").submit();
             });
         });

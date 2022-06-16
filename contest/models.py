@@ -1,9 +1,12 @@
 from django.db import models
 
+from common.models import User
+
 
 class Contest(models.Model):
     name = models.CharField(max_length=50)  # 대회명
-    # content = models.TextField()  # 대회 설명
+    author = models.ForeignKey(User, on_delete=models.CASCADE)  # 대회 설명
+    content = models.TextField()  # 대회 설명
     registration_start_date = models.DateField()  # 접수 시작일
     registration_end_date = models.DateField()  # 접수 종료일
     contest_start_date = models.DateField()  # 대회 시작일

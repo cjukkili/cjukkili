@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load page_filter %}
 {% load humanize %}
 {% block content %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,8 +28,8 @@
                 {% if contest_list %}
                     {% for contest in contest_list %}
                         <tr>
-                            <td class="">{{ forloop.counter }}</td>
-                            <td>{{ contest.name }}</td>
+                            <td class="">{{ contest_list.paginator.count|sub:contest_list.start_index|sub:forloop.counter0|add:1 }}</td>
+                            <td><a href="{% url 'contest:detail' contest.id %}">{{ contest.name }}</a></td>
                             <td>{{ contest.registration_start_date|date:'Y.m.d' }}</td>
                             <td>{{ contest.registration_end_date|date:'Y.m.d' }}</td>
                             <td>{{ contest.contest_start_date|date:'Y.m.d' }}</td>

@@ -1,5 +1,6 @@
 {% extends "club/club_base.html" %}
 {% load static %}
+{% load page_filter %}
 {% block club_content %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,7 +46,7 @@
             {% if question_list %}
                 {% for question in question_list %}
                     <tr>
-                        <td class="">{{ forloop.counter }}</td>
+                        <td class="">{{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}</td>
                         <td>동아리</td>
                         <td class="text-start">
                             <a class="question_title" href="{% url 'club:detail' question.id %}" >{{ question.title|truncatechars:40 }}
