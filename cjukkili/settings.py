@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     # humanize(천단위 출력)
     'django.contrib.humanize',
-    
+
     # crispy forms
     'crispy_forms',
 
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'club.apps.ClubConfig',
     'trade.apps.TradeConfig',
     'contest.apps.ContestConfig',
+    'book.apps.BookConfig',
 
     # 소셜 로그인 관련
     'django.contrib.sites',

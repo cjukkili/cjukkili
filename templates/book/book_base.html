@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container mt-3" style=" margin-left: 0px; margin-right: 0px;">
+        {#        <div class="row mx-0">#}
+        {#            <div class="col-sm-12 col-md-3 col-lg-2 p-2">#}
+        {#                {% include "board/question_sidebar.html" %}#}
+        {#            </div>#}
+        <div class="col-12 pt-2">
+            <div id="content" class="border-secondary">
+                {#기본 템플릿 안에 삽입될 내용 Start#}
+                {% block book_content %}
+                {% endblock %}
+                {#기본 템플릿 안에 삽입될 내용 End#}
+            </div>
+        </div>
+    </div>
+{% endblock %}
