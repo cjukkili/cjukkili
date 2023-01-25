@@ -7,11 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'question_list.css' %}">
     <div class="col-12 text-center board-title">
-    {% if college_name %}
-        {{ college_name }}
-    {% else %}
-        단과대학
-    {% endif %}
+        {% if college_name %}
+            {{ college_name }}
+        {% else %}
+            단과대학
+        {% endif %}
     </div>
     <div class="container my-3">
         <div class="d-flex flex-row justify-content-between">
@@ -20,7 +20,8 @@
                 <select class="my-3 ms-2 college_name">
                     <option value="">전체</option>
                     {% for college in college_list %}
-                        <option value="{{ college.department }}" {% if college_name == college.department %}selected{% endif %}>{{ college.department }}</option>
+                        <option value="{{ college.department }}"
+                                {% if college_name == college.department %}selected{% endif %}>{{ college.department }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -57,7 +58,7 @@
                     <tr>
                         <td class="" style="font-size: 12px">{{ book.id }}</td>
                         <td class="text-start" style="font-size: 12px;">
-                            <a class="question_title" style="font-size: 15px" href= >{{ book.title|truncatechars:35 }}
+                            <a class="question_title" style="font-size: 15px" onclick="display_hide({{ book.id }})">{{ book.title|truncatechars:35 }}
                             </a>
                         </td>
                         <td style="font-size: 12px">{{ book.author }}</td>
@@ -65,8 +66,16 @@
                         <td style="font-size: 12px">{{ book.pubMonth }}</td>
                         <td style="font-size: 14px">{{ book.price }}</td>
                     </tr>
-                    <tr>
-                    <td colspan="6"></td>
+                    <tr id="{{ book.id }}" style="display: none">
+                        <td colspan="6" align="left" style="font-size: 13px;">
+                        {% if book.info %}
+                            {% autoescape off %}
+                                {{ book.info }}
+                            {% endautoescape %}
+                        {% else %}
+                            책 정보가 없습니다.
+                        {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
             {% else %}
@@ -111,7 +120,8 @@
             <!-- 다음페이지 -->
             {% if bookList.has_next %}
                 <li class="page-item">
-                    <a class="page-link page_next" data-page="{{ bookList.next_page_number }}" href="#" style="">&nbsp;</a>
+                    <a class="page-link page_next" data-page="{{ bookList.next_page_number }}" href="#"
+                       style="">&nbsp;</a>
                 </li>
             {% else %}
                 <li class="page-item disabled">
@@ -129,14 +139,24 @@
 {% endblock %}
 {% block script %}
     <script type='text/javascript'>
-        $(document).ready(function(){
-            $(".page-link").on('click', function() {
+        function display_hide(id){
+            let trID = document.getElementById(id);
+            console.log(trID)
+            if(trID.style.display == 'none') {
+                trID.style.display = '';
+            }
+            else{
+                trID.style.display = 'none'
+            };
+        };
+        $(document).ready(function () {
+            $(".page-link").on('click', function () {
                 $("#page").val($(this).data("page"));
                 $("#searchForm").submit();
             });
 
             const btn_search = document.getElementById("btn_search");
-            btn_search.addEventListener('click', function() {
+            btn_search.addEventListener('click', function () {
                 document.getElementById('kw').value = document.getElementById('search_kw').value;
                 document.getElementById("st").value = document.getElementById("searchtype").value;
                 document.getElementById('page').value = 1;  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
